@@ -7,3 +7,4 @@
 *.g_c
 */.settings/
 */Static_Code
+*.orig
