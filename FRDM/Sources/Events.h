@@ -37,6 +37,10 @@
 #include "LED_Green.h"
 #include "BitIoLdd1.h"
 #include "WAIT1.h"
+#include "LED_Red.h"
+#include "BitIoLdd2.h"
+#include "LED_Blue.h"
+#include "BitIoLdd3.h"
 
 #ifdef __cplusplus
 extern "C" {
