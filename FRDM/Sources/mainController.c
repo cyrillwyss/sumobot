@@ -9,7 +9,14 @@
 #include "WAIT1.h"
 #include "../../Common/Led.h"
 
+void hallo(void (*fct)(void)){
+	fct();
+}
+
 void mainController_run(void) {
+
+	hallo(25);
+
 	int a = 0;
 	LED_Init();
 	while (1) {
