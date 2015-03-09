@@ -41,6 +41,7 @@
 #include "BitIoLdd2.h"
 #include "Led3.h"
 #include "BitIoLdd3.h"
+#include "CS1.h"
 
 #ifdef __cplusplus
 extern "C" {
