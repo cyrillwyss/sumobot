@@ -36,6 +36,9 @@
 #include "BitIoLdd2.h"
 #include "WAIT1.h"
 #include "CS1.h"
+#include "TI1.h"
+#include "TimerIntLdd1.h"
+#include "TU1.h"
 /* Including shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"

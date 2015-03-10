@@ -19,12 +19,14 @@
 
 #define PL_HAS_LED      (1)
 
+#define PL_HAS_HAS_TIMER (1)
+#define PL_HAS_EVENTS	(1)
+
 #if PL_IS_FRDM
   #define PL_NOF_LEDS       (3)
-	#define PL_HAS_EVENTS	1
+
 #elif PL_IS_ROBO
   #define PL_NOF_LEDS       (2)
-	#define PL_HAS_EVENTS	1
 #else
   #error "unknown configuration?"
 #endif

@@ -27,8 +27,8 @@ typedef enum EVNT_Handle {
 } EVNT_Handle;
 
 typedef struct __attribute__((__packed__)) EventAllocation {
-	void (*SpecificHandler)(void);
 	EVNT_Handle handle;
+	void (*SpecificHandler)(void);
 } EventAllocation; /*!< Used to allocate event handles and handler functions*/
 
 /*!

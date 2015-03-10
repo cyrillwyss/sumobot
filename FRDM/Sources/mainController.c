@@ -10,13 +10,17 @@
 #include "../../Common/Led.h"
 #include "../../Common/Event.h"
 #include "EventHandler.h"
+#include "../../Common/Timer.h"
+#include "Cpu.h"
 
 void mainController_run(void) {
 
 	LED_Init();
 	EVNT_Init();
+	TMR_Init();
 
-	EVNT_SetEvent(EVNT_LED_HEARTBEAT);
+
+	EVNT_SetEvent(EVNT_INIT);
 
 	while(1)
 	{

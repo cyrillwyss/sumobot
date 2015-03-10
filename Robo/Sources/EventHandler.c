@@ -8,8 +8,6 @@
 #include "../../Common/Led.h"
 #include "WAIT1.h"
 
-
-
 void ProcessInitEvet(void);
 void ProcessSW1Event(void);
 void ProcessSW2Event(void);
@@ -24,11 +22,15 @@ EventAllocation evtAlloc[] = { { EVNT_INIT, ProcessInitEvet }, {
 				EVNT_LED_HEARTBEAT, ProcessLEDHeartbeatEcent } }; /*!< Allocation between event type and handler function*/
 
 void EventHandler_HandleEvent(void) {
-	EVNT_HandleEvent(evtAlloc,sizeof(evtAlloc));
+	EVNT_HandleEvent(evtAlloc, sizeof(evtAlloc));
 }
 
 void ProcessInitEvet(void) {
-
+	for (int i = 0; i < 3; i++) {
+		LED2_On();
+		WAIT1_Waitms(100);
+		LED2_Off();
+	}
 }
 void ProcessSW1Event(void) {
 
@@ -45,7 +47,7 @@ void ProcessSW4Event(void) {
 void ProcessLEDHeartbeatEcent(void) {
 
 	LED1_On();
-	WAIT1_Waitms(2000);
+	WAIT1_Waitms(100);
 	LED1_Off();
 
 }

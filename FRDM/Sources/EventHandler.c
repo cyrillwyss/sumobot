@@ -28,7 +28,12 @@ void EventHandler_HandleEvent(void) {
 }
 
 void ProcessInitEvet(void) {
-
+	for (int i = 0; i < 3; i++) {
+		LED2_On();
+		WAIT1_Waitms(100);
+		LED2_Off();
+		WAIT1_Waitms(100);
+	}
 }
 void ProcessSW1Event(void) {
 
@@ -45,7 +50,7 @@ void ProcessSW4Event(void) {
 void ProcessLEDHeartbeatEcent(void) {
 
 	LED1_On();
-	WAIT1_Waitms(2000);
+	WAIT1_Waitms(100);
 	LED1_Off();
 
 }
