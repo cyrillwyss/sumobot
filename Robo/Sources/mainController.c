@@ -8,58 +8,19 @@
 #include "mainController.h"
 #include "WAIT1.h"
 #include "../../Common/Led.h"
+#include "../../Common/Event.h"
+#include "EventHandler.h"
 
 void mainController_run(void) {
-	int a = 0;
 	LED_Init();
-	while (1) {
-		switch (a) {
-		case 0:
-			LED1_On();
-			LED2_On();
-			LED3_On();
-			break;
-		case 1:
-			LED1_Off();
-			LED2_On();
-			LED3_On();
-			break;
-		case 2:
-			LED1_On();
-			LED2_Off();
-			LED3_On();
-			break;
-		case 3:
-			LED1_On();
-			LED2_On();
-			LED3_Off();
-			break;
-		case 4:
-			LED1_Off();
-			LED2_Off();
-			LED3_On();
-			break;
-		case 5:
-			LED1_On();
-			LED2_Off();
-			LED3_Off();
-			break;
-		case 6:
-			LED1_Off();
-			LED2_On();
-			LED3_Off();
-			break;
-		case 7:
-			LED1_Off();
-			LED2_Off();
-			LED3_Off();
-			break;
-		}
-		WAIT1_Waitms(200);
-		a++;
-		if (a == 7) {
-			a = 0;
-		}
+	EVNT_Init();
+
+	EVNT_SetEvent(EVNT_LED_HEARTBEAT);
+
+	while(1)
+	{
+		EventHandler_HandleEvent();
 	}
+
 }
 
