@@ -10,11 +10,12 @@
 #include "../../Common/Led.h"
 #include "../../Common/Event.h"
 #include "../../Common/Timer.h"
+#include "../../Common/Platform.h"
 #include "EventHandler.h"
 
 void mainController_run(void) {
-	LED_Init();
-	EVNT_Init();
+	PL_Init();
+
 	TMR_Init();
 
 	EVNT_SetEvent(EVNT_INIT);

@@ -37,9 +37,11 @@ void ProcessInitEvet(void) {
 }
 void ProcessSW1Event(void) {
 
+	LED1_On();
+
 }
 void ProcessSW2Event(void) {
-
+LED1_Off();
 }
 void ProcessSW3Event(void) {
 
@@ -49,8 +51,8 @@ void ProcessSW4Event(void) {
 }
 void ProcessLEDHeartbeatEcent(void) {
 
-	LED1_On();
+	LED2_On();
 	WAIT1_Waitms(100);
-	LED1_Off();
+	LED2_Off();
 
 }

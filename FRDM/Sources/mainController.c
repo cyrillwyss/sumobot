@@ -12,19 +12,30 @@
 #include "EventHandler.h"
 #include "../../Common/Timer.h"
 #include "Cpu.h"
+#include "../../Common/Mealy.h"
+#include "../../Common/Platform.h"
+#include "../../Common/Keys.h"
+
 
 void mainController_run(void) {
 
-	LED_Init();
-	EVNT_Init();
-	TMR_Init();
+	PL_Init();
 
+	TMR_Init();
+	KEY_EnableInterrupts();
 
 	EVNT_SetEvent(EVNT_INIT);
 
 	while(1)
 	{
-		EventHandler_HandleEvent();
+
+	//	KEY_Scan();
+
+		MEALY_Step();
+
+		//EventHandler_HandleEvent();
+
+		WAIT1_Waitms(20);
 	}
 
 

@@ -21,6 +21,9 @@ typedef enum EVNT_Handle {
   EVNT_SW2_PRESSED,
   EVNT_SW3_PRESSED,
   EVNT_SW4_PRESSED,
+  EVNT_SW5_PRESSED,
+  EVNT_SW6_PRESSED,
+  EVNT_SW7_PRESSED,
   EVNT_LED_HEARTBEAT,
   /*!< \todo Your events here */
   EVNT_NOF_EVENTS       /*!< Must be last one! */
