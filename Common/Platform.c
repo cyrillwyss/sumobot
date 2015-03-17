@@ -9,6 +9,10 @@
 #include "LED.h"
 #include "Mealy.h"
 #include "Keys.h"
+#include "Event.h"
+#include "Trigger.h"
+#include "Buzzer.h"
+
 
 void PL_Init(void) {
 #if PL_HAS_MEALY
@@ -25,6 +29,14 @@ void PL_Init(void) {
 #if PL_HAS_KEYS
 	KEY_Init();
 #endif
+
+#if PL_HAS_TRIGGER
+	TRG_Init();
+#endif
+#if PL_HAS_BUZZER
+	BUZ_Init();
+#endif
+
 }
 
 void PL_Deinit(void) {
@@ -42,5 +54,13 @@ void PL_Deinit(void) {
 
 #if PL_HAS_KEYS
 	KEY_Deinit();
+#endif
+
+#if PL_HAS_TRIGGER
+	TRG_Deinit();
+#endif
+
+#if PL_HAS_BUZZER
+	BUZ_Deinit();
 #endif
 }

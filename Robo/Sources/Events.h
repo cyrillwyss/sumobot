@@ -50,6 +50,8 @@
 #include "CLS1.h"
 #include "SW1.h"
 #include "ExtIntLdd1.h"
+#include "BUZ1.h"
+#include "BitIoLdd4.h"
 
 #ifdef __cplusplus
 extern "C" {

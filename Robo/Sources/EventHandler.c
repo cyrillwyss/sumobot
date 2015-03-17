@@ -8,6 +8,7 @@
 #include "../../Common/Led.h"
 #include "WAIT1.h"
 #include "CLS1.h"
+#include "../../Common/Buzzer.h"
 
 void ProcessInitEvet(void);
 void ProcessSW1Event(void);
@@ -22,10 +23,12 @@ void EventHandler_HandleEvent(void) {
 }
 
 void ProcessInitEvet(void) {
+	BUZ_Beep(250,600);
 	for (int i = 0; i < 3; i++) {
 		LED2_On();
 		WAIT1_Waitms(100);
 		LED2_Off();
+		WAIT1_Waitms(100);
 	}
 }
 void ProcessSW1Event(void) {

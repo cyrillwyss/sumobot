@@ -11,7 +11,7 @@
 
 #include "Platform.h"
 
-#define TMR_TICK_MS  10
+#define TMR_TICK_MS  1
   /*!< we get called every TMR_TICK_MS ms */
 
 /*! \brief Function called from timer interrupt every TMR_TICK_MS. */

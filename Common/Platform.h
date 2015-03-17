@@ -24,6 +24,8 @@
 #define PL_HAS_MEALY	(1)
 #define PL_HAS_KEYS		(1)
 #define PL_HAS_KBI		(1)
+#define PL_HAS_TRIGGER	(1)
+#define PL_HAS_SHELL 	(1)
 
 #if PL_IS_FRDM
   #define PL_NOF_LEDS       (3)
@@ -37,6 +39,7 @@
 #elif PL_IS_ROBO
   #define PL_NOF_LEDS       (2)
 #define PL_NOF_KEYS 		(1)
+#define PL_HAS_BUZZER		(1)
 #else
   #error "unknown configuration?"
 #endif
