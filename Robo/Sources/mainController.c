@@ -12,6 +12,7 @@
 #include "../../Common/Timer.h"
 #include "../../Common/Platform.h"
 #include "EventHandler.h"
+#include "CLS1.h"
 
 void mainController_run(void) {
 	PL_Init();
@@ -19,6 +20,8 @@ void mainController_run(void) {
 	TMR_Init();
 
 	EVNT_SetEvent(EVNT_INIT);
+
+	CLS1_SendStr("Hello from Robot\r\n",CLS1_GetStdio()->stdOut);
 
 	while(1)
 	{

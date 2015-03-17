@@ -9,150 +9,176 @@
 
 #include "Platform.h"
 #if PL_HAS_KEYS
-  #include "Keys.h"
+#include "Keys.h"
 #if PL_HAS_EVENTS
-  #include "Event.h"
+#include "Event.h"
 #endif
 
+bool keysDown[PL_NOF_KEYS];
+
 void KEY_Scan(void) {
-  /*! \todo check handling all keys */
+	/*! \todo check handling all keys */
 #if PL_NOF_KEYS >= 1 && PL_KEY_POLLED_KEY1
-  if (KEY1_Get()) { /* key pressed */
-    EVNT_SetEvent(EVNT_SW1_PRESSED);
-  }
+	if (KEY1_Get()) { /* key pressed */
+		EVNT_SetEvent(EVNT_SW1_PRESSED);
+	}
 #endif
 #if PL_NOF_KEYS >= 2 && PL_KEY_POLLED_KEY2
-  if (KEY2_Get()) { /* key pressed */
-    EVNT_SetEvent(EVNT_SW2_PRESSED);
-  }
+	if (KEY2_Get()) { /* key pressed */
+		EVNT_SetEvent(EVNT_SW2_PRESSED);
+	}
 #endif
 #if PL_NOF_KEYS >= 3 && PL_KEY_POLLED_KEY3
-  if (KEY3_Get()) { /* key pressed */
-    EVNT_SetEvent(EVNT_SW3_PRESSED);
-  }
+	if (KEY3_Get()) { /* key pressed */
+		EVNT_SetEvent(EVNT_SW3_PRESSED);
+	}
 #endif
 #if PL_NOF_KEYS >= 4 && PL_KEY_POLLED_KEY4
-  if (KEY4_Get()) { /* key pressed */
-    EVNT_SetEvent(EVNT_SW4_PRESSED);
-  }
+	if (KEY4_Get()) { /* key pressed */
+		EVNT_SetEvent(EVNT_SW4_PRESSED);
+	}
 #endif
 #if PL_NOF_KEYS >= 5 && PL_KEY_POLLED_KEY5
-  if (KEY5_Get()) { /* key pressed */
-    EVNT_SetEvent(EVNT_SW5_PRESSED);
-  }
+	if (KEY5_Get()) { /* key pressed */
+		if (!keysDown[4]) {
+			keysDown[4] = 1;
+			EVNT_SetEvent(EVNT_SW5_PRESSED);
+		}
+	} else {
+		keysDown[4] = 0;
+	}
 #endif
 #if PL_NOF_KEYS >= 6 && PL_KEY_POLLED_KEY6
-  if (KEY6_Get()) { /* key pressed */
-    EVNT_SetEvent(EVNT_SW6_PRESSED);
-  }
+	if (KEY6_Get()) { /* key pressed */
+		if (!keysDown[5]) {
+			keysDown[5] = 1;
+			EVNT_SetEvent(EVNT_SW6_PRESSED);
+		}
+	} else {
+		keysDown[5] = 0;
+	}
 #endif
 #if PL_NOF_KEYS >= 7 && PL_KEY_POLLED_KEY7
-  if (KEY7_Get()) { /* key pressed */
-    EVNT_SetEvent(EVNT_SW7_PRESSED);
-  }
+	if (KEY7_Get()) { /* key pressed */
+		EVNT_SetEvent(EVNT_SW7_PRESSED);
+	}
 #endif
 }
 
 #if PL_HAS_KBI
 void KEY_OnInterrupt(KEY_Buttons button) {
-  switch(button) {
+	switch (button) {
 #if PL_NOF_KEYS >= 1
-    case KEY_BTN1: EVNT_SetEvent(EVNT_SW1_PRESSED); break;
+	case KEY_BTN1:
+		EVNT_SetEvent(EVNT_SW1_PRESSED);
+		break;
 #endif
 #if PL_NOF_KEYS >= 2
-    case KEY_BTN2: EVNT_SetEvent(EVNT_SW2_PRESSED); break;
+	case KEY_BTN2:
+		EVNT_SetEvent(EVNT_SW2_PRESSED);
+		break;
 #endif
 #if PL_NOF_KEYS >= 3
-    case KEY_BTN3: EVNT_SetEvent(EVNT_SW3_PRESSED); break;
+	case KEY_BTN3:
+		EVNT_SetEvent(EVNT_SW3_PRESSED);
+		break;
 #endif
 #if PL_NOF_KEYS >= 4
-    case KEY_BTN4: EVNT_SetEvent(EVNT_SW4_PRESSED); break;
+	case KEY_BTN4:
+		EVNT_SetEvent(EVNT_SW4_PRESSED);
+		break;
 #endif
 #if PL_NOF_KEYS >= 5
-    case KEY_BTN5: EVNT_SetEvent(EVNT_SW5_PRESSED); break;
+	case KEY_BTN5:
+		EVNT_SetEvent(EVNT_SW5_PRESSED);
+		break;
 #endif
 #if PL_NOF_KEYS >= 6
-    case KEY_BTN6: EVNT_SetEvent(EVNT_SW6_PRESSED); break;
+	case KEY_BTN6:
+		EVNT_SetEvent(EVNT_SW6_PRESSED);
+		break;
 #endif
 #if PL_NOF_KEYS >= 6
-    case KEY_BTN7: EVNT_SetEvent(EVNT_SW7_PRESSED); break;
+	case KEY_BTN7:
+		EVNT_SetEvent(EVNT_SW7_PRESSED);
+		break;
 #endif
-    default:
-      /* unknown? */
-      break;
-  } /* switch */
+	default:
+		/* unknown? */
+		break;
+	} /* switch */
 }
 
 void KEY_EnableInterrupts(void) {
 #if PL_NOF_KEYS >= 1 && !PL_KEY_POLLED_KEY1
-  SW1_Enable();
+	SW1_Enable();
 #endif
 #if PL_NOF_KEYS >= 2 && !PL_KEY_POLLED_KEY2
-  SW2_Enable();
+	SW2_Enable();
 #endif
 #if PL_NOF_KEYS >= 3 && !PL_KEY_POLLED_KEY3
-  SW3_Enable();
+	SW3_Enable();
 #if PL_HAS_KBI_NMI
-  /* necessary to clear interrupts on Port A */
-  PORT_PDD_ClearPinInterruptFlag(PORTA_BASE_PTR, ExtIntLdd4_PIN_INDEX);
-  PORT_PDD_SetPinInterruptConfiguration(PORTA_BASE_PTR, 4, PORT_PDD_DMA_ON_FALLING);
+	/* necessary to clear interrupts on Port A */
+	PORT_PDD_ClearPinInterruptFlag(PORTA_BASE_PTR, ExtIntLdd4_PIN_INDEX);
+	PORT_PDD_SetPinInterruptConfiguration(PORTA_BASE_PTR, 4, PORT_PDD_DMA_ON_FALLING);
 #endif
 #endif
 #if PL_NOF_KEYS >= 4 && !PL_KEY_POLLED_KEY4
-  SW4_Enable();
+	SW4_Enable();
 #endif
 #if PL_NOF_KEYS >= 5 && !PL_KEY_POLLED_KEY5
-  SW5_Enable();
+	SW5_Enable();
 #endif
 #if PL_NOF_KEYS >= 6 && !PL_KEY_POLLED_KEY6
-  SW6_Enable();
+	SW6_Enable();
 #endif
 #if PL_NOF_KEYS >= 7 && !PL_KEY_POLLED_KEY7
-  SW7_Enable();
+	SW7_Enable();
 #endif
 }
 
 void KEY_DisableInterrupts(void) {
 #if PL_NOF_KEYS >= 1 && !PL_KEY_POLLED_KEY1
-  SW1_Disable();
+	SW1_Disable();
 #endif
 #if PL_NOF_KEYS >= 2 && !PL_KEY_POLLED_KEY2
-  SW2_Disable();
+	SW2_Disable();
 #endif
 #if PL_NOF_KEYS >= 3 && !PL_KEY_POLLED_KEY3
-  SW3_Disable();
+	SW3_Disable();
 #if PL_HAS_KBI_NMI
-  PORT_PDD_SetPinInterruptConfiguration(PORTA_BASE_PTR, 4, PORT_PDD_INTERRUPT_DMA_DISABLED);
+	PORT_PDD_SetPinInterruptConfiguration(PORTA_BASE_PTR, 4, PORT_PDD_INTERRUPT_DMA_DISABLED);
 #endif
 #endif
 #if PL_NOF_KEYS >= 4 && !PL_KEY_POLLED_KEY4
-  SW4_Disable();
+	SW4_Disable();
 #endif
 #if PL_NOF_KEYS >= 5 && !PL_KEY_POLLED_KEY5
-  SW5_Disable();
+	SW5_Disable();
 #endif
 #if PL_NOF_KEYS >= 6 && !PL_KEY_POLLED_KEY6
-  SW6_Disable();
+	SW6_Disable();
 #endif
 #if PL_NOF_KEYS >= 7 && !PL_KEY_POLLED_KEY7
-  SW7_Disable();
+	SW7_Disable();
 #endif
 }
 
 void PORTA_OnInterrupt(void) {
-  void Cpu_ivINT_PORTA(void); /* prototype of ISR in Cpu.c */
+	void Cpu_ivINT_PORTA(void); /* prototype of ISR in Cpu.c */
 
-  Cpu_ivINT_PORTA(); /* call interrupt handler created by the ExtInt components */
+	Cpu_ivINT_PORTA(); /* call interrupt handler created by the ExtInt components */
 }
 #endif
 
 /*! \brief Key driver initialization */
 void KEY_Init(void) {
-  /* nothing needed for now */
+	/* nothing needed for now */
 }
 
 /*! \brief Key driver de-initialization */
 void KEY_Deinit(void) {
-  /* nothing needed for now */
+	/* nothing needed for now */
 }
 #endif /* PL_HAS_KEYS */

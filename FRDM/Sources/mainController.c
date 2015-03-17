@@ -15,6 +15,7 @@
 #include "../../Common/Mealy.h"
 #include "../../Common/Platform.h"
 #include "../../Common/Keys.h"
+#include "CLS1.h"
 
 
 void mainController_run(void) {
@@ -26,14 +27,14 @@ void mainController_run(void) {
 
 	EVNT_SetEvent(EVNT_INIT);
 
+	CLS1_SendStr("Hello from FRDM\r\n",CLS1_GetStdio()->stdOut);
+
 	while(1)
 	{
 
-	//	KEY_Scan();
+		KEY_Scan();
 
-		MEALY_Step();
-
-		//EventHandler_HandleEvent();
+		EventHandler_HandleEvent();
 
 		WAIT1_Waitms(20);
 	}

@@ -172,6 +172,8 @@ void MEALY_Step(void) {
   state = (MealyState)(tbl[state][i][0]);  /* read out next internal state */
 }
 
+
+
 /*! \brief Initializes the Mealy state machine */
 void MEALY_Init(void) {
   state = A;

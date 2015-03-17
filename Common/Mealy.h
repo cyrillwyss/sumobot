@@ -9,8 +9,12 @@
 #ifndef __MEALY_H_
 #define __MEALY_H_
 
+
+
+
 /*! \brief This implements our Mealy Sequential Machine. On each call the FSM will perform a check/test advances as necessary. */
 void MEALY_Step(void);
+
 
 /*! \brief Initialization routine of the state machine */
 void MEALY_Init(void);

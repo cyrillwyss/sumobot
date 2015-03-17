@@ -22,11 +22,13 @@
 #define PL_HAS_HAS_TIMER (1)
 #define PL_HAS_EVENTS	(1)
 #define PL_HAS_MEALY	(1)
+#define PL_HAS_KEYS		(1)
+#define PL_HAS_KBI		(1)
 
 #if PL_IS_FRDM
   #define PL_NOF_LEDS       (3)
-#define PL_HAS_KEYS		(1)
-#define PL_HAS_KBI		(1)
+
+
 #define PL_HAS_JOYSTICK	(1)
 #define PL_NOF_KEYS		(7)
 #define PL_KEY_POLLED_KEY5 (1)			//This key is beeing polled
@@ -34,6 +36,7 @@
 
 #elif PL_IS_ROBO
   #define PL_NOF_LEDS       (2)
+#define PL_NOF_KEYS 		(1)
 #else
   #error "unknown configuration?"
 #endif

@@ -63,6 +63,10 @@
 #include "ExtIntLdd5.h"
 #include "AD1.h"
 #include "AdcLdd1.h"
+#include "AS1.h"
+#include "ASerialLdd1.h"
+#include "CLS1.h"
+#include "UTIL1.h"
 
 #ifdef __cplusplus
 extern "C" {
