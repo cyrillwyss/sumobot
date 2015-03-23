@@ -52,6 +52,7 @@ void EventHandler_HandleEvent(void) {
 }
 
 void ProcessInitEvet(void) {
+	CLS1_SendStr("Initializing\r\n",CLS1_GetStdio()->stdOut);
 	for (int i = 0; i < 3; i++) {
 		LED2_On();
 		WAIT1_Waitms(100);
@@ -137,7 +138,6 @@ void ProcessSW7EventReleased(void){
 
 
 void ProcessLEDHeartbeatEcent(void) {
-
 	LED2_On();
 	WAIT1_Waitms(100);
 	LED2_Off();

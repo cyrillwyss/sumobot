@@ -15,51 +15,49 @@
 #include "Event.h"
 #include "CS1.h"
 
-
-
 /*!
  * \brief Returns the state of the keys. This directly reflects the value of the port
  * \return Port bits
  */
 static DBNC_KeySet KEYDBNC_GetKeys(void) {
-  DBNC_KeySet keys = 0;
+	DBNC_KeySet keys = 0;
 
 #if PL_NOF_KEYS >= 1
-  if (KEY1_Get()) {
-    keys |= (1<<0);
-  }
+	if (KEY1_Get()) {
+		keys |= (1 << 0);
+	}
 #endif
 #if PL_NOF_KEYS >= 2
-  if (KEY2_Get()) {
-    keys |= (1<<1);
-  }
+	if (KEY2_Get()) {
+		keys |= (1 << 1);
+	}
 #endif
 #if PL_NOF_KEYS >= 3
-  if (KEY3_Get()) {
-    keys |= (1<<2);
-  }
+	if (KEY3_Get()) {
+		keys |= (1 << 2);
+	}
 #endif
 #if PL_NOF_KEYS >= 4
-  if (KEY4_Get()) {
-    keys |= (1<<3);
-  }
+	if (KEY4_Get()) {
+		keys |= (1 << 3);
+	}
 #endif
 #if PL_NOF_KEYS >= 5
-  if (KEY5_Get()) {
-    keys |= (1<<4);
-  }
+	if (KEY5_Get()) {
+		keys |= (1 << 4);
+	}
 #endif
 #if PL_NOF_KEYS >= 6
-  if (KEY6_Get()) {
-    keys |= (1<<5);
-  }
+	if (KEY6_Get()) {
+		keys |= (1 << 5);
+	}
 #endif
 #if PL_NOF_KEYS >= 7
-  if (KEY7_Get()) {
-    keys |= (1<<6);
-  }
+	if (KEY7_Get()) {
+		keys |= (1 << 6);
+	}
 #endif
-  return keys;
+	return keys;
 }
 
 /*!
@@ -68,168 +66,167 @@ static DBNC_KeySet KEYDBNC_GetKeys(void) {
  * \param event The event kind
  */
 static void KEYDBNC_OnDebounceEvent(DBNC_EventKinds event, DBNC_KeySet keys) {
-  switch(event) {
-    /* pressed */
-    case DBNC_EVENT_PRESSED:
+	switch (event) {
+	/* pressed */
+	case DBNC_EVENT_PRESSED:
 #if PL_NOF_KEYS >= 1
-      if (keys==(1<<0)) {
-        EVNT_SetEvent(EVNT_SW1_PRESSED);
-      }
+		if (keys == (1 << 0)) {
+			EVNT_SetEvent(EVNT_SW1_PRESSED);
+		}
 #endif
 #if PL_NOF_KEYS >= 2
-      if (keys==(1<<1)) {
-        EVNT_SetEvent(EVNT_SW2_PRESSED);
-      }
+		if (keys == (1 << 1)) {
+			EVNT_SetEvent(EVNT_SW2_PRESSED);
+		}
 #endif
 #if PL_NOF_KEYS >= 3
-      if (keys==(1<<2)) {
-        EVNT_SetEvent(EVNT_SW3_PRESSED);
-      }
+		if (keys == (1 << 2)) {
+			EVNT_SetEvent(EVNT_SW3_PRESSED);
+		}
 #endif
 #if PL_NOF_KEYS >= 4
-      if (keys==(1<<3)) {
-        EVNT_SetEvent(EVNT_SW4_PRESSED);
-      }
+		if (keys == (1 << 3)) {
+			EVNT_SetEvent(EVNT_SW4_PRESSED);
+		}
 #endif
 #if PL_NOF_KEYS >= 5
-      if (keys==(1<<4)) {
-        EVNT_SetEvent(EVNT_SW5_PRESSED);
-      }
+		if (keys == (1 << 4)) {
+			EVNT_SetEvent(EVNT_SW5_PRESSED);
+		}
 #endif
 #if PL_NOF_KEYS >= 6
-      if (keys==(1<<5)) {
-        EVNT_SetEvent(EVNT_SW6_PRESSED);
-      }
+		if (keys == (1 << 5)) {
+			EVNT_SetEvent(EVNT_SW6_PRESSED);
+		}
 #endif
 #if PL_NOF_KEYS >= 7
-      if (keys==(1<<6)) {
-        EVNT_SetEvent(EVNT_SW7_PRESSED);
-      }
+		if (keys == (1 << 6)) {
+			EVNT_SetEvent(EVNT_SW7_PRESSED);
+		}
 #endif
-      break;
+		break;
 
-    /* long pressed */
-    case DBNC_EVENT_LONG_PRESSED:
+		/* long pressed */
+	case DBNC_EVENT_LONG_PRESSED:
 #if PL_NOF_KEYS >= 1
-      if (keys==(1<<0)) {
-        EVNT_SetEvent(EVNT_SW1_LPRESSED);
-      }
+		if (keys == (1 << 0)) {
+			EVNT_SetEvent(EVNT_SW1_LPRESSED);
+		}
 #endif
 #if PL_NOF_KEYS >= 2
-      if (keys==(1<<1)) {
-        EVNT_SetEvent(EVNT_SW2_LPRESSED);
-      }
+		if (keys == (1 << 1)) {
+			EVNT_SetEvent(EVNT_SW2_LPRESSED);
+		}
 #endif
 #if PL_NOF_KEYS >= 3
-     if (keys==(1<<2)) {
-        EVNT_SetEvent(EVNT_SW3_LPRESSED);
-      }
+		if (keys == (1 << 2)) {
+			EVNT_SetEvent(EVNT_SW3_LPRESSED);
+		}
 #endif
 #if PL_NOF_KEYS >= 4
-     if (keys==(1<<3)) {
-        EVNT_SetEvent(EVNT_SW4_LPRESSED);
-      }
+		if (keys == (1 << 3)) {
+			EVNT_SetEvent(EVNT_SW4_LPRESSED);
+		}
 #endif
 #if PL_NOF_KEYS >= 5
-     if (keys==(1<<4)) {
-        EVNT_SetEvent(EVNT_SW5_LPRESSED);
-      }
+		if (keys == (1 << 4)) {
+			EVNT_SetEvent(EVNT_SW5_LPRESSED);
+		}
 #endif
 #if PL_NOF_KEYS >= 6
-     if (keys==(1<<5)) {
-        EVNT_SetEvent(EVNT_SW6_LPRESSED);
-      }
+		if (keys == (1 << 5)) {
+			EVNT_SetEvent(EVNT_SW6_LPRESSED);
+		}
 #endif
 #if PL_NOF_KEYS >= 7
-     if (keys==(1<<6)) {
-        EVNT_SetEvent(EVNT_SW7_LPRESSED);
-      }
+		if (keys == (1 << 6)) {
+			EVNT_SetEvent(EVNT_SW7_LPRESSED);
+		}
 #endif
-     break;
+		break;
 
-     /* released */
-    case DBNC_EVENT_RELEASED:
+		/* released */
+	case DBNC_EVENT_RELEASED:
 #if PL_NOF_KEYS >= 1
-      if (keys==(1<<0)) {
-        EVNT_SetEvent(EVNT_SW1_RELEASED);
-      }
+		if (keys == (1 << 0)) {
+			EVNT_SetEvent(EVNT_SW1_RELEASED);
+		}
 #endif
 #if PL_NOF_KEYS >= 2
-      if (keys==(1<<1)) {
-        EVNT_SetEvent(EVNT_SW2_RELEASED);
-      }
+		if (keys == (1 << 1)) {
+			EVNT_SetEvent(EVNT_SW2_RELEASED);
+		}
 #endif
 #if PL_NOF_KEYS >= 3
-      if (keys==(1<<2)) {
-        EVNT_SetEvent(EVNT_SW3_RELEASED);
-      }
+		if (keys == (1 << 2)) {
+			EVNT_SetEvent(EVNT_SW3_RELEASED);
+		}
 #endif
 #if PL_NOF_KEYS >= 4
-      if (keys==(1<<3)) {
-        EVNT_SetEvent(EVNT_SW4_RELEASED);
-      }
+		if (keys == (1 << 3)) {
+			EVNT_SetEvent(EVNT_SW4_RELEASED);
+		}
 #endif
 #if PL_NOF_KEYS >= 5
-      if (keys==(1<<4)) {
-        EVNT_SetEvent(EVNT_SW5_RELEASED);
-      }
+		if (keys == (1 << 4)) {
+			EVNT_SetEvent(EVNT_SW5_RELEASED);
+		}
 #endif
 #if PL_NOF_KEYS >= 6
-      if (keys==(1<<5)) {
-        EVNT_SetEvent(EVNT_SW6_RELEASED);
-      }
+		if (keys == (1 << 5)) {
+			EVNT_SetEvent(EVNT_SW6_RELEASED);
+		}
 #endif
 #if PL_NOF_KEYS >= 7
-      if (keys==(1<<6)) {
-        EVNT_SetEvent(EVNT_SW7_RELEASED);
-      }
+		if (keys == (1 << 6)) {
+			EVNT_SetEvent(EVNT_SW7_RELEASED);
+		}
 #endif
-      break;
-    case DBNC_EVENT_END:
-    	KEY_EnableInterrupts();
-      /*! \todo Implement what you have to do at the end of the debouncing. Need to re-enable interrupts? */
-      break;
-  } /* switch */
+		break;
+	case DBNC_EVENT_END:
+		KEY_EnableInterrupts();
+		/*! \todo Implement what you have to do at the end of the debouncing. Need to re-enable interrupts? */
+		break;
+	} /* switch */
 }
 
 /*! \brief This struct contains all the data and pointers needed to have
  *         our debounce FSM reentrant and usable for multiple ISR's.
  */
 static DBNC_FSMData KEYDBNC_FSMdata = {
-  /* callbacks: */
-  KEYDBNC_GetKeys, /* returns bit set of pressed keys */
-  KEYDBNC_OnDebounceEvent, /* event callback */
-  /* data: */
-  DBNC_KEY_IDLE, /* initial state machine state, here the state is stored */
-  0, /* key scan value */
-  0, /* long key count */
-  TRG_KEYPRESS, /* trigger to be used */
-  (50/TRG_TICKS_MS), /* debounceTicks for 50 ms */
-  (500/TRG_TICKS_MS), /* longKeyTicks for 500 ms */
+/* callbacks: */
+KEYDBNC_GetKeys, /* returns bit set of pressed keys */
+KEYDBNC_OnDebounceEvent, /* event callback */
+/* data: */
+DBNC_KEY_IDLE, /* initial state machine state, here the state is stored */
+0, /* key scan value */
+0, /* long key count */
+TRG_KEYPRESS, /* trigger to be used */
+(50 / TRG_TICKS_MS), /* debounceTicks for 50 ms */
+(500 / TRG_TICKS_MS), /* longKeyTicks for 500 ms */
 };
-
-
 
 void KEYDBNC_Scan(void) {
 
-	KEY_DisableInterrupts();
-	if(KEYDBNC_FSMdata.state==DBNC_KEY_IDLE)
-	{
+	if (KEYDBNC_FSMdata.state == DBNC_KEY_IDLE && KEYDBNC_GetKeys() != 0) {
+#if PL_HAS_KBI
+		KEY_DisableInterrupts();
+#endif
 		DBNC_Process(&KEYDBNC_FSMdata);
 	}
 
-  /** \todo call DBNC_Scan(&KEYDBNC_FSMdata);
-   * But be careful: only if we are not debouncing, and if we have a key press if we are polling.
-   * And you will need to disable the keyboard interrupts too!
-   */
+	/** \todo call DBNC_Scan(&KEYDBNC_FSMdata);
+	 * But be careful: only if we are not debouncing, and if we have a key press if we are polling.
+	 * And you will need to disable the keyboard interrupts too!
+	 */
 }
 
 void KEYDBNC_Init(void) {
-  /* nothing needed */
+	/* nothing needed */
 }
 
 void KEYDBNC_Deinit(void) {
-  /* nothing needed */
+	/* nothing needed */
 }
 
 #endif /* PL_HAS_KEYS && PL_HAS_DEBOUNCE */

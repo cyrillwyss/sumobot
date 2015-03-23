@@ -18,54 +18,49 @@
 #endif
 
 
-static void KEY_ScanDown(EVNT_Handle key)
-{
+
+
+void KEY_Scan(void) {
 #if PL_HAS_DEBOUNCE
 	KEYDBNC_Scan();
 #else
-	EVEVNT_SetEvent(key);
-#endif
-}
-
-void KEY_Scan(void) {
-
 	/*! \todo check handling all keys */
 #if PL_NOF_KEYS >= 1 && PL_KEY_POLLED_KEY1
 	if (KEY1_Get()) { /* key pressed */
-		 KEY_ScanDown(EVNT_SW1_PRESSED);
+		EVEVNT_SetEvent(EVNT_SW1_PRESSED);
 	}
 #endif
 #if PL_NOF_KEYS >= 2 && PL_KEY_POLLED_KEY2
 	if (KEY2_Get()) { /* key pressed */
-		 KEY_ScanDown(EVNT_SW2_PRESSED);
+		EVEVNT_SetEvent(EVNT_SW2_PRESSED);
 	}
 #endif
 #if PL_NOF_KEYS >= 3 && PL_KEY_POLLED_KEY3
 	if (KEY3_Get()) { /* key pressed */
-		 KEY_ScanDown(EVNT_SW3_PRESSED);
+		EVEVNT_SetEvent(EVNT_SW3_PRESSED);
 	}
 #endif
 #if PL_NOF_KEYS >= 4 && PL_KEY_POLLED_KEY4
 	if (KEY4_Get()) { /* key pressed */
-		 KEY_ScanDown(EVNT_SW4_PRESSED);
+		EVEVNT_SetEvent(EVNT_SW4_PRESSED);
 	}
 #endif
 #if PL_NOF_KEYS >= 5 && PL_KEY_POLLED_KEY5
 	if (KEY5_Get()) { /* key pressed */
-		 KEY_ScanDown(EVNT_SW5_PRESSED);
+		EVEVNT_SetEvent(EVNT_SW5_PRESSED);
 	}
 #endif
 #if PL_NOF_KEYS >= 6 && PL_KEY_POLLED_KEY6
 	if (KEY6_Get()) { /* key pressed */
-		 KEY_ScanDown(EVNT_SW6_PRESSED);
+		EVEVNT_SetEvent(EVNT_SW6_PRESSED);
 	}
 #endif
 #if PL_NOF_KEYS >= 7 && PL_KEY_POLLED_KEY7
 	if (KEY7_Get()) { /* key pressed */
-		 KEY_ScanDown(EVNT_SW7_PRESSED);
+		EVEVNT_SetEvent(EVNT_SW7_PRESSED);
 	}
 #endif
-
+#endif
 }
 
 #if PL_HAS_KBI
