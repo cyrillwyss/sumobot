@@ -13,100 +13,107 @@
 #if PL_HAS_EVENTS
 #include "Event.h"
 #endif
+#if PL_HAS_DEBOUNCE
+#include "KeyDebounce.h"
+#endif
 
-bool keysDown[PL_NOF_KEYS];
+
+static void KEY_ScanDown(EVNT_Handle key)
+{
+#if PL_HAS_DEBOUNCE
+	KEYDBNC_Scan();
+#else
+	EVEVNT_SetEvent(key);
+#endif
+}
 
 void KEY_Scan(void) {
+
 	/*! \todo check handling all keys */
 #if PL_NOF_KEYS >= 1 && PL_KEY_POLLED_KEY1
 	if (KEY1_Get()) { /* key pressed */
-		EVNT_SetEvent(EVNT_SW1_PRESSED);
+		 KEY_ScanDown(EVNT_SW1_PRESSED);
 	}
 #endif
 #if PL_NOF_KEYS >= 2 && PL_KEY_POLLED_KEY2
 	if (KEY2_Get()) { /* key pressed */
-		EVNT_SetEvent(EVNT_SW2_PRESSED);
+		 KEY_ScanDown(EVNT_SW2_PRESSED);
 	}
 #endif
 #if PL_NOF_KEYS >= 3 && PL_KEY_POLLED_KEY3
 	if (KEY3_Get()) { /* key pressed */
-		EVNT_SetEvent(EVNT_SW3_PRESSED);
+		 KEY_ScanDown(EVNT_SW3_PRESSED);
 	}
 #endif
 #if PL_NOF_KEYS >= 4 && PL_KEY_POLLED_KEY4
 	if (KEY4_Get()) { /* key pressed */
-		EVNT_SetEvent(EVNT_SW4_PRESSED);
+		 KEY_ScanDown(EVNT_SW4_PRESSED);
 	}
 #endif
 #if PL_NOF_KEYS >= 5 && PL_KEY_POLLED_KEY5
 	if (KEY5_Get()) { /* key pressed */
-		if (!keysDown[4]) {
-			keysDown[4] = 1;
-			EVNT_SetEvent(EVNT_SW5_PRESSED);
-		}
-	} else {
-		keysDown[4] = 0;
+		 KEY_ScanDown(EVNT_SW5_PRESSED);
 	}
 #endif
 #if PL_NOF_KEYS >= 6 && PL_KEY_POLLED_KEY6
 	if (KEY6_Get()) { /* key pressed */
-		if (!keysDown[5]) {
-			keysDown[5] = 1;
-			EVNT_SetEvent(EVNT_SW6_PRESSED);
-		}
-	} else {
-		keysDown[5] = 0;
+		 KEY_ScanDown(EVNT_SW6_PRESSED);
 	}
 #endif
 #if PL_NOF_KEYS >= 7 && PL_KEY_POLLED_KEY7
 	if (KEY7_Get()) { /* key pressed */
-		EVNT_SetEvent(EVNT_SW7_PRESSED);
+		 KEY_ScanDown(EVNT_SW7_PRESSED);
 	}
 #endif
+
 }
 
 #if PL_HAS_KBI
 void KEY_OnInterrupt(KEY_Buttons button) {
+#if PL_HAS_DEBOUNCE
+	KEYDBNC_Scan();
+#else
 	switch (button) {
 #if PL_NOF_KEYS >= 1
-	case KEY_BTN1:
+		case KEY_BTN1:
 		EVNT_SetEvent(EVNT_SW1_PRESSED);
 		break;
 #endif
 #if PL_NOF_KEYS >= 2
-	case KEY_BTN2:
+		case KEY_BTN2:
 		EVNT_SetEvent(EVNT_SW2_PRESSED);
 		break;
 #endif
 #if PL_NOF_KEYS >= 3
-	case KEY_BTN3:
+		case KEY_BTN3:
 		EVNT_SetEvent(EVNT_SW3_PRESSED);
 		break;
 #endif
 #if PL_NOF_KEYS >= 4
-	case KEY_BTN4:
+		case KEY_BTN4:
 		EVNT_SetEvent(EVNT_SW4_PRESSED);
 		break;
 #endif
 #if PL_NOF_KEYS >= 5
-	case KEY_BTN5:
+		case KEY_BTN5:
 		EVNT_SetEvent(EVNT_SW5_PRESSED);
 		break;
 #endif
 #if PL_NOF_KEYS >= 6
-	case KEY_BTN6:
+		case KEY_BTN6:
 		EVNT_SetEvent(EVNT_SW6_PRESSED);
 		break;
 #endif
 #if PL_NOF_KEYS >= 6
-	case KEY_BTN7:
+		case KEY_BTN7:
 		EVNT_SetEvent(EVNT_SW7_PRESSED);
 		break;
 #endif
-	default:
+		default:
 		/* unknown? */
 		break;
 	} /* switch */
+#endif
 }
 
 void KEY_EnableInterrupts(void) {
