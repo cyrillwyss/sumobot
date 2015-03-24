@@ -13,22 +13,28 @@
 #include "../../Common/Platform.h"
 #include "EventHandler.h"
 #include "CLS1.h"
+#include "FRTOS1.h"
+#include "../../Common/RTOS.h"
 
+
+static portTASK_FUNCTION(Main, pvParameters) {
+	KEY_EnableInterrupts();
+
+	EVNT_SetEvent(EVNT_INIT);
+	for (;;) {
+		EventHandler_HandleEvent();
+
+		FRTOS1_vTaskDelay(50 / portTICK_RATE_MS);
+	}
+}
 
 void mainController_run(void) {
 	PL_Init();
 
-	TMR_Init();
-
-	EVNT_SetEvent(EVNT_INIT);
-
-	CLS1_SendStr("Hello from Robot\r\n",CLS1_GetStdio()->stdOut);
-
-
-	while(1)
-	{
-		EventHandler_HandleEvent();
-	}
+	 if (FRTOS1_xTaskCreate(Main, (signed portCHAR *)"MAIN", configMINIMAL_STACK_SIZE, NULL, 1, NULL) != pdPASS) {
+	    for(;;){} /* error */
+	  }
+	 RTOS_Run();
 
 }
 

@@ -52,7 +52,7 @@ void EventHandler_HandleEvent(void) {
 }
 
 void ProcessInitEvet(void) {
-	CLS1_SendStr("Initializing\r\n",CLS1_GetStdio()->stdOut);
+	CLS1_SendStr("Hello from FRDM\r\n",CLS1_GetStdio()->stdOut);
 	for (int i = 0; i < 3; i++) {
 		LED2_On();
 		WAIT1_Waitms(100);
@@ -63,12 +63,12 @@ void ProcessInitEvet(void) {
 void ProcessSW1Event(void) {
 
 	CLS1_SendStr("A Pressed\r\n", CLS1_GetStdio()->stdOut);
-	LED1_On();
+	LED2_On();
 
 }
 void ProcessSW2Event(void) {
 	CLS1_SendStr("B Pressed\r\n", CLS1_GetStdio()->stdOut);
-	LED1_Off();
+	LED2_Off();
 }
 void ProcessSW3Event(void) {
 	CLS1_SendStr("C Pressed\r\n", CLS1_GetStdio()->stdOut);
@@ -135,7 +135,6 @@ void ProcessSW6EventReleased(void){
 void ProcessSW7EventReleased(void){
 	CLS1_SendStr("Joystick Released\r\n", CLS1_GetStdio()->stdOut);
 }
-
 
 void ProcessLEDHeartbeatEcent(void) {
 	LED2_On();

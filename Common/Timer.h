@@ -23,9 +23,6 @@ void TMR_Init(void);
 /*! \brief Timer driver de-initialization */
 void TMR_Deinit(void);
 
-int TMR_GetTicks(void);
-
-int TMR_GetTimeMS(void);
 
 
 #endif /* TIMER_H_ */

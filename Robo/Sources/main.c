@@ -36,9 +36,6 @@
 #include "BitIoLdd2.h"
 #include "WAIT1.h"
 #include "CS1.h"
-#include "TI1.h"
-#include "TimerIntLdd1.h"
-#include "TU1.h"
 #include "UTIL1.h"
 #include "BT1.h"
 #include "Serial1.h"
@@ -48,6 +45,7 @@
 #include "ExtIntLdd1.h"
 #include "BUZ1.h"
 #include "BitIoLdd4.h"
+#include "FRTOS1.h"
 /* Including shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"

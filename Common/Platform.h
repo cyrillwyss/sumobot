@@ -27,6 +27,7 @@
 #define PL_HAS_TRIGGER	(1)
 #define PL_HAS_SHELL 	(1)
 #define PL_HAS_DEBOUNCE (1)
+#define PL_HAS_RTOS		(1)
 
 #if PL_IS_FRDM
   #define PL_NOF_LEDS       (3)
