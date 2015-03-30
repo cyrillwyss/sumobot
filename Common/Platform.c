@@ -13,6 +13,7 @@
 #include "Trigger.h"
 #include "Buzzer.h"
 #include "RTOS.h"
+#include "Shell.h"
 
 void PL_Init(void) {
 #if PL_HAS_MEALY
@@ -36,10 +37,11 @@ void PL_Init(void) {
 #if PL_HAS_BUZZER
 	BUZ_Init();
 #endif
-
-
 #if PL_HAS_RTOS
 	 RTOS_Init();
+#endif
+#if	PL_HAS_SHELL
+	 SHELL_Init();
 #endif
 }
 
@@ -70,5 +72,8 @@ void PL_Deinit(void) {
 
 #if PL_HAS_RTOS
 	 RTOS_Deinit();
+#endif
+#if	PL_HAS_SHELL
+	 SHELL_Deinit();
 #endif
 }

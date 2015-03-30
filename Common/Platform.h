@@ -25,20 +25,24 @@
 #define PL_HAS_KEYS		(1)
 #define PL_HAS_KBI		(1)
 #define PL_HAS_TRIGGER	(1)
-#define PL_HAS_SHELL 	(1)
 #define PL_HAS_DEBOUNCE (1)
 #define PL_HAS_RTOS		(1)
+#define PL_HAS_SHELL	(1)
 
 #if PL_IS_FRDM
-  #define PL_NOF_LEDS       (3)
-
-
-#define PL_HAS_JOYSTICK	(1)
-#define PL_NOF_KEYS		(7)
-#define PL_KEY_POLLED_KEY5 (1)			//This key is beeing polled
-#define PL_KEY_POLLED_KEY6 (1)			//This key is beeing polled
+#define PL_HAS_BLUETHOOTH	(0)
+#define PL_HAS_USB_CDC		(1)
+#define CLS1_DEFAULT_SERIAL	(1)
+#define PL_NOF_LEDS       	(3)
+#define PL_HAS_JOYSTICK		(1)
+#define PL_NOF_KEYS			(7)
+#define PL_KEY_POLLED_KEY5 	(1)			//This key is beeing polled
+#define PL_KEY_POLLED_KEY6 	(1)			//This key is beeing polled
 
 #elif PL_IS_ROBO
+#define PL_HAS_BLUETHOOTH	(1)
+#define PL_HAS_USB_CDC		(1)
+#define CLS1_DEFAULT_SERIAL	(1)
   #define PL_NOF_LEDS       (2)
 #define PL_NOF_KEYS 		(1)
 #define PL_HAS_BUZZER		(1)
