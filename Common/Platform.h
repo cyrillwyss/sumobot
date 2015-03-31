@@ -33,7 +33,6 @@
 #if PL_IS_FRDM
 #define PL_HAS_BLUETHOOTH	(0)
 #define PL_HAS_USB_CDC		(1)
-#define CLS1_DEFAULT_SERIAL	(1)
 #define PL_NOF_LEDS       	(3)
 #define PL_HAS_JOYSTICK		(1)
 #define PL_NOF_KEYS			(7)
@@ -43,7 +42,6 @@
 #elif PL_IS_ROBO
 #define PL_HAS_BLUETHOOTH	(1)
 #define PL_HAS_USB_CDC		(1)
-#define CLS1_DEFAULT_SERIAL	(1)
   #define PL_NOF_LEDS       (2)
 #define PL_NOF_KEYS 		(1)
 #define PL_HAS_BUZZER		(1)

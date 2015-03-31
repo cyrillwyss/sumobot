@@ -15,6 +15,7 @@
 #include "CLS1.h"
 #include "FRTOS1.h"
 #include "../../Common/RTOS.h"
+#include "../../Common/Keys.h"
 
 
 static portTASK_FUNCTION(Main, pvParameters) {

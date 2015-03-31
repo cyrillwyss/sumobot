@@ -25,7 +25,7 @@ void SQUEUE_SendString(const unsigned char *str) {
 
 unsigned char SQUEUE_ReceiveChar(void) {
 	char c;
-    if( FRTOS1_xQueueReceive(SQUEUE_Queue,&c,100/portTICK_RATE_MS)!=pdPASS){
+    if( FRTOS1_xQueueReceive(SQUEUE_Queue,&c,0/portTICK_RATE_MS)!=pdPASS){
     	return '\0';
     }
     return c;

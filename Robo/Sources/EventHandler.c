@@ -10,6 +10,7 @@
 #include "CLS1.h"
 #include "../../Common/Buzzer.h"
 #include "../../Common/Trigger.h"
+#include "../../Common/ShellQueue.h"
 
 void ProcessInitEvet(void);
 void ProcessSW1Event(void);
