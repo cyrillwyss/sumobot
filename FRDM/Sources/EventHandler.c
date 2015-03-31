@@ -9,6 +9,7 @@
 #include "WAIT1.h"
 #include "../../Common/Mealy.h"
 #include "CLS1.h"
+#include "../../Common/ShellQueue.h"
 
 void ProcessInitEvet(void);
 void ProcessSW1Event(void);
@@ -33,6 +34,7 @@ void ProcessSW5EventReleased(void);
 void ProcessSW6EventReleased(void);
 void ProcessSW7EventReleased(void);
 void ProcessLEDHeartbeatEcent(void);
+void SendStringToUSB(char* string);
 
 EventAllocation evtAlloc[] = { { EVNT_INIT, ProcessInitEvet }, {
 		EVNT_SW1_PRESSED, ProcessSW1Event },
@@ -51,8 +53,16 @@ void EventHandler_HandleEvent(void) {
 	EVNT_HandleEvent(evtAlloc, sizeof(evtAlloc));
 }
 
+void SendStringToUSB(char* string){
+#if PL_HAS_SHELL_QUEUE
+	SQUEUE_SendString(string);
+#else
+	CLS1_SendStr(string, CLS1_GetStdio()->stdOut);
+#endif
+}
+
 void ProcessInitEvet(void) {
-	CLS1_SendStr("Hello from FRDM\r\n",CLS1_GetStdio()->stdOut);
+	SendStringToUSB("Hello from FRDM\r\n");
 	for (int i = 0; i < 3; i++) {
 		LED2_On();
 		WAIT1_Waitms(100);
@@ -62,78 +72,79 @@ void ProcessInitEvet(void) {
 }
 void ProcessSW1Event(void) {
 
-	CLS1_SendStr("A Pressed\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("A Pressed\r\n");
+
 	LED2_On();
 
 }
 void ProcessSW2Event(void) {
-	CLS1_SendStr("B Pressed\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("B Pressed\r\n");
 	LED2_Off();
 }
 void ProcessSW3Event(void) {
-	CLS1_SendStr("C Pressed\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("C Pressed\r\n");
 
 }
 void ProcessSW4Event(void) {
-	CLS1_SendStr("D Pressed\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("D Pressed\r\n");
 
 }
 void ProcessSW5Event(void) {
-	CLS1_SendStr("E Pressed\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("E Pressed\r\n");
 
 }
 void ProcessSW6Event(void) {
-	CLS1_SendStr("F Pressed\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("F Pressed\r\n");
 
 }
 void ProcessSW7Event(void) {
-	CLS1_SendStr("Joystick Pressed\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("Joystick Pressed\r\n");
 
 }
 void ProcessSW1EventLong(void)
 {
-	CLS1_SendStr("A Long Pressed\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("A Long Pressed\r\n");
 }
 void ProcessSW2EventLong(void)
 {
-	CLS1_SendStr("B Long Pressed\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("B Long Pressed\r\n");
 }
 void ProcessSW3EventLong(void)
 {
-	CLS1_SendStr("C Long Pressed\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("C Long Pressed\r\n");
 }
 void ProcessSW4EventLong(void){
-	CLS1_SendStr("D Long Pressed\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("D Long Pressed\r\n");
 }
 void ProcessSW5EventLong(void){
-	CLS1_SendStr("E Long Pressed\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("E Long Pressed\r\n");
 }
 void ProcessSW6EventLong(void){
-	CLS1_SendStr("F Long Pressed\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("F Long Pressed\r\n");
 }
 void ProcessSW7EventLong(void){
-	CLS1_SendStr("Joystick Long Pressed\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("Joystick Long Pressed\r\n");
 }
 void ProcessSW1EventReleased(void){
-	CLS1_SendStr("A Released\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("A Released\r\n");
 }
 void ProcessSW2EventReleased(void){
-	CLS1_SendStr("B Released\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("B Released\r\n");
 }
 void ProcessSW3EventReleased(void){
-	CLS1_SendStr("C Released\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("C Released\r\n");
 }
 void ProcessSW4EventReleased(void){
-	CLS1_SendStr("D Released\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("D Released\r\n");
 }
 void ProcessSW5EventReleased(void){
-	CLS1_SendStr("E Released\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("E Released\r\n");
 }
 void ProcessSW6EventReleased(void){
-	CLS1_SendStr("F Released\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("F Released\r\n");
 }
 void ProcessSW7EventReleased(void){
-	CLS1_SendStr("Joystick Released\r\n", CLS1_GetStdio()->stdOut);
+	SendStringToUSB("Joystick Released\r\n");
 }
 
 void ProcessLEDHeartbeatEcent(void) {

@@ -19,15 +19,16 @@
 
 #define PL_HAS_LED      (1)
 
-#define PL_HAS_HAS_TIMER (1)
-#define PL_HAS_EVENTS	(1)
-#define PL_HAS_MEALY	(1)
-#define PL_HAS_KEYS		(1)
-#define PL_HAS_KBI		(1)
-#define PL_HAS_TRIGGER	(1)
-#define PL_HAS_DEBOUNCE (1)
-#define PL_HAS_RTOS		(1)
-#define PL_HAS_SHELL	(1)
+#define PL_HAS_HAS_TIMER 	(1)
+#define PL_HAS_EVENTS		(1)
+#define PL_HAS_MEALY		(1)
+#define PL_HAS_KEYS			(1)
+#define PL_HAS_KBI			(1)
+#define PL_HAS_TRIGGER		(1)
+#define PL_HAS_DEBOUNCE 	(1)
+#define PL_HAS_RTOS			(1)
+#define PL_HAS_SHELL		(1)
+#define PL_HAS_SHELL_QUEUE	(1)
 
 #if PL_IS_FRDM
 #define PL_HAS_BLUETHOOTH	(0)

@@ -14,6 +14,7 @@
 #include "Buzzer.h"
 #include "RTOS.h"
 #include "Shell.h"
+#include "ShellQueue.h"
 
 void PL_Init(void) {
 #if PL_HAS_MEALY
@@ -39,6 +40,9 @@ void PL_Init(void) {
 #endif
 #if PL_HAS_RTOS
 	 RTOS_Init();
+#endif
+#if PL_HAS_SHELL_QUEUE
+	 SQUEUE_Init();
 #endif
 #if	PL_HAS_SHELL
 	 SHELL_Init();
@@ -73,7 +77,11 @@ void PL_Deinit(void) {
 #if PL_HAS_RTOS
 	 RTOS_Deinit();
 #endif
+
 #if	PL_HAS_SHELL
 	 SHELL_Deinit();
+#endif
+#if PL_HAS_SHELL_QUEUE
+	 SQUEUE_Deinit();
 #endif
 }

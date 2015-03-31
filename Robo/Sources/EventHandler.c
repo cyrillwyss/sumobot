@@ -17,6 +17,7 @@ void ProcessSW1EventLong(void);
 void ProcessSW1EventReleased(void);
 void ProcessLEDHeartbeatEcent(void);
 void TurnOffHeartBeat(TRG_CallBackDataPtr data);
+void SendStringToUSB(char* string);
 
 EventAllocation evtAlloc[] = { { EVNT_INIT, ProcessInitEvet }, {
 		EVNT_SW1_PRESSED, ProcessSW1Event },{
@@ -28,8 +29,16 @@ void EventHandler_HandleEvent(void) {
 	EVNT_HandleEvent(evtAlloc, sizeof(evtAlloc));
 }
 
+void SendStringToUSB(char* string){
+#if PL_HAS_SHELL_QUEUE
+	SQUEUE_SendString(string);
+#else
+	CLS1_SendStr(string, CLS1_GetStdio()->stdOut);
+#endif
+}
+
 void ProcessInitEvet(void) {
-	CLS1_SendStr("Hello from Fat Bastard\r\n",CLS1_GetStdio()->stdOut);
+	SendStringToUSB("Hello from Fat Bastard\r\n" );
 	BUZ_Beep(250,600);
 	for (int i = 0; i < 3; i++) {
 		LED2_On();
@@ -39,15 +48,15 @@ void ProcessInitEvet(void) {
 	}
 }
 void ProcessSW1Event(void) {
-	CLS1_SendStr("S2 Pressed\r\n",CLS1_GetStdio()->stdOut);
+	SendStringToUSB("S2 Pressed\r\n" );
 	LED2_On();
 }
 void ProcessSW1EventLong(void){
-	CLS1_SendStr("S2 Long Pressed\r\n",CLS1_GetStdio()->stdOut);
+	SendStringToUSB("S2 Long Pressed\r\n" );
 	LED2_Off();
 }
 void ProcessSW1EventReleased(void){
-	CLS1_SendStr("S2 Released\r\n",CLS1_GetStdio()->stdOut);
+	SendStringToUSB("S2 Released\r\n" );
 
 }
 void ProcessLEDHeartbeatEcent(void) {
