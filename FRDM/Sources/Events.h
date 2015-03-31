@@ -49,7 +49,6 @@
 #include "ExtIntLdd2.h"
 #include "SW3.h"
 #include "ExtIntLdd3.h"
-#include "PTA.h"
 #include "SW4.h"
 #include "ExtIntLdd4.h"
 #include "SW5.h"

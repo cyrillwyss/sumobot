@@ -104,10 +104,12 @@ void SW4_OnInterrupt(void) {
  ** ===================================================================
  */
 void SW3_OnInterrupt(void) {
+#if !PL_KEY_POLLED_KEY3
 	if (PORT_PDD_GetPinInterruptFlag(PORTA_BASE_PTR, ExtIntLdd3_PIN_INDEX)) {
 		PORT_PDD_ClearPinInterruptFlag(PORTA_BASE_PTR, ExtIntLdd3_PIN_INDEX);
 		KEY_OnInterrupt(KEY_BTN3);
 	}
+#endif
 	/* Write your code here ... */
 }
 

@@ -152,6 +152,8 @@ void KEY_DisableInterrupts(void) {
 #if PL_HAS_KBI_NMI
 	PORT_PDD_SetPinInterruptConfiguration(PORTA_BASE_PTR, 4, PORT_PDD_INTERRUPT_DMA_DISABLED);
 #endif
+
+
 #endif
 #if PL_NOF_KEYS >= 4 && !PL_KEY_POLLED_KEY4
 	SW4_Disable();
@@ -165,6 +167,7 @@ void KEY_DisableInterrupts(void) {
 #if PL_NOF_KEYS >= 7 && !PL_KEY_POLLED_KEY7
 	SW7_Disable();
 #endif
+	PORT_PDD_ClearPinInterruptFlag(PORTA_BASE_PTR, ExtIntLdd3_PIN_INDEX);
 }
 
 void PORTA_OnInterrupt(void) {

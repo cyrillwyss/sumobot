@@ -3,7 +3,7 @@
   <Header>
     <Name>FRDM</Name>
     <SavedBy>Cyrill</SavedBy>
-    <ModificationStamp>32</ModificationStamp>
+    <ModificationStamp>35</ModificationStamp>
     <Date>2015-03-31</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.10.1.RT6_b1444-1070</PEversion>
@@ -29,7 +29,7 @@
     <UseExistingModules>true</UseExistingModules>
     <RenamePeripheries>false</RenamePeripheries>
     <Autodependency>true</Autodependency>
-    <ProjectCompNumb>94</ProjectCompNumb>
+    <ProjectCompNumb>97</ProjectCompNumb>
     <DelUnusedPreviouslyGenFiles>true</DelUnusedPreviouslyGenFiles>
     <GeneratedCodeFrozen>false</GeneratedCodeFrozen>
     <AssignInitComponentNameToPrph>true</AssignInitComponentNameToPrph>
@@ -12163,7 +12163,7 @@
     <BeanType>Init_GPIO_VAR0</BeanType>
     <Name>PTA</Name>
     <CompNumb>52</CompNumb>
-    <CompEnabled>true</CompEnabled>
+    <CompEnabled>false</CompEnabled>
     <GenCodeMode>ALWAYS_WRITE</GenCodeMode>
     <IconName>PERIPHINSP</IconName>
     <UserFolderName>Joystick</UserFolderName>

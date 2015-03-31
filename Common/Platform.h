@@ -38,6 +38,7 @@
 #define PL_NOF_KEYS			(7)
 #define PL_KEY_POLLED_KEY5 	(1)			//This key is beeing polled
 #define PL_KEY_POLLED_KEY6 	(1)			//This key is beeing polled
+#define PL_KEY_POLLED_KEY3 	(1)			//This key is beeing polled
 
 #elif PL_IS_ROBO
 #define PL_HAS_BLUETHOOTH	(1)
