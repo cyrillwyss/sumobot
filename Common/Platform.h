@@ -31,6 +31,7 @@
 #define PL_HAS_SHELL_QUEUE	(1)
 
 #if PL_IS_FRDM
+#define PL_HAS_SEMAPHORE	(1)
 #define PL_HAS_BLUETHOOTH	(0)
 #define PL_HAS_USB_CDC		(1)
 #define PL_NOF_LEDS       	(3)

@@ -18,6 +18,7 @@
 #include "CLS1.h"
 #include "FRTOS1.h"
 #include "../../Common/RTOS.h"
+#include "../../Common/Sem.h"
 
 
 
@@ -40,6 +41,7 @@ void mainController_run(void) {
 	 if (FRTOS1_xTaskCreate(Main, (signed portCHAR *)"MAIN", configMINIMAL_STACK_SIZE, NULL, 1, NULL) != pdPASS) {
 	    for(;;){} /* error */
 	  }
+	 SEM_Init();
 	 RTOS_Run();
 
 }
