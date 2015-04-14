@@ -21,6 +21,9 @@
 #if PL_HAS_SHELL_QUEUE
   #include "ShellQueue.h"
 #endif
+#if PL_HAS_LINE_SENSOR
+#include "Reflectance.h"
+#endif
 
 /* forward declaration */
 static uint8_t SHELL_ParseCommand(const unsigned char *cmd, bool *handled, const CLS1_StdIOType *io);
@@ -31,6 +34,9 @@ static const CLS1_ParseCommandCallback CmdParserTable[] =
   SHELL_ParseCommand, /* our own module parser */
 #if FRTOS1_PARSE_COMMAND_ENABLED
   FRTOS1_ParseCommand, /* FreeRTOS shell parser */
+#endif
+#if REF_PARSE_COMMAND_ENABLED
+  REF_ParseCommand,
 #endif
 #if PL_HAS_BLUETOOTH
 #if BT1_PARSE_COMMAND_ENABLED

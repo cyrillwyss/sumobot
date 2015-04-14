@@ -15,6 +15,7 @@
 #include "RTOS.h"
 #include "Shell.h"
 #include "ShellQueue.h"
+#include "Reflectance.h"
 
 void PL_Init(void) {
 #if PL_HAS_MEALY
@@ -46,6 +47,9 @@ void PL_Init(void) {
 #endif
 #if	PL_HAS_SHELL
 	 SHELL_Init();
+#endif
+#if PL_HAS_LINE_SENSOR
+	 REF_Init();
 #endif
 }
 
@@ -83,5 +87,8 @@ void PL_Deinit(void) {
 #endif
 #if PL_HAS_SHELL_QUEUE
 	 SQUEUE_Deinit();
+#endif
+#if PL_HAS_LINE_SENSOR
+	 REF_Deinit();
 #endif
 }

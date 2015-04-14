@@ -11,6 +11,7 @@
 #include "../../Common/Buzzer.h"
 #include "../../Common/Trigger.h"
 #include "../../Common/ShellQueue.h"
+#include "../../Common/Reflectance.h"
 
 void ProcessInitEvet(void);
 void ProcessSW1Event(void);
@@ -23,7 +24,7 @@ void SendStringToUSB(char* string);
 EventAllocation evtAlloc[] = { { EVNT_INIT, ProcessInitEvet }, {
 		EVNT_SW1_PRESSED, ProcessSW1Event },{
 				EVNT_SW1_LPRESSED, ProcessSW1EventLong },{
-						EVNT_SW1_RELEASED, ProcessSW1EventReleased }, {
+						EVNT_SW1_RELEASED, ProcessSW1EventReleased },{
 				EVNT_LED_HEARTBEAT, ProcessLEDHeartbeatEcent } }; /*!< Allocation between event type and handler function*/
 
 void EventHandler_HandleEvent(void) {
@@ -54,6 +55,7 @@ void ProcessSW1Event(void) {
 }
 void ProcessSW1EventLong(void){
 	SendStringToUSB("S2 Long Pressed\r\n" );
+	REF_StartStopCallibration();
 	LED2_Off();
 }
 void ProcessSW1EventReleased(void){
@@ -68,3 +70,4 @@ void ProcessLEDHeartbeatEcent(void) {
 void TurnOffHeartBeat(TRG_CallBackDataPtr data){
 	LED1_Off();
 }
+

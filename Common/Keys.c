@@ -167,7 +167,7 @@ void KEY_DisableInterrupts(void) {
 #if PL_NOF_KEYS >= 7 && !PL_KEY_POLLED_KEY7
 	SW7_Disable();
 #endif
-	PORT_PDD_ClearPinInterruptFlag(PORTA_BASE_PTR, ExtIntLdd3_PIN_INDEX);
+
 }
 
 void PORTA_OnInterrupt(void) {

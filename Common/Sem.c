@@ -22,7 +22,6 @@ static portTASK_FUNCTION(vSlaveTask, pvParameters) {
 	  if(xSemaphoreTake(MySem,50)==pdTRUE) {
 		  LED3_Neg();
 	  }
-
   }
 }
 
