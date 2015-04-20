@@ -24,6 +24,7 @@
 #include "Event.h"
 #include "Shell.h"
 #include "CS1.h"
+#include "NVM_Config.h"
 
 //#include "NVM_Config.h"
 #if PL_HAS_BUZZER
@@ -34,7 +35,8 @@
 #define REF_MIN_LINE_VAL      0x60   /* minimum value indicating a line */
 #define REF_MIN_NOISE_VAL     0x40   /* values below this are not added to the weighted sum */
 #define REF_USE_WHITE_LINE    0  /* if set to 1, then the robot is using a white (on black) line, otherwise a black (on white) line */
-#define REF_MAX_MEASURE_TIME_US 2000
+#define REF_MAX_MEASURE_TIME_US 1500
+#define REF_SENSOR_TIMEOUT_VAL (((RefCnt_CNT_INP_FREQ_U_0/1000)*REF_MAX_MEASURE_TIME_US)/1000)
 
 typedef enum {
 	REF_STATE_INIT,
@@ -173,13 +175,13 @@ static void REF_MeasureRaw(SensorTimeType raw[REF_NOF_SENSORS]) {
 		SensorFctArray[i].SetInput(); /* turn I/O line as input */
 	}
 	CS1_CriticalVariable()
-	CS1_EnterCritical();
+	CS1_EnterCritical()
+	;
 	do {
 
 		/*! \todo Be aware that this might block for a long time, if discharging takes long. Consider using a timeout. */
 		cnt = 0;
-		if(RefCnt_GetCounterValue(timerHandle) > REF_MAX_MEASURE_TIME_US)
-		{
+		if (RefCnt_GetCounterValue(timerHandle) > REF_SENSOR_TIMEOUT_VAL) {
 			break;
 		}
 		for (i = 0; i < REF_NOF_SENSORS; i++) {
@@ -293,7 +295,7 @@ uint16_t REF_GetLineValue(void) {
 static void REF_Measure(void) {
 	ReadCalibrated(SensorCalibrated, SensorRaw);
 	refCenterLineVal = ReadLine(SensorCalibrated, SensorRaw,
-			REF_USE_WHITE_LINE);
+	REF_USE_WHITE_LINE);
 }
 
 static uint8_t PrintHelp(const CLS1_StdIOType *io) {
@@ -439,17 +441,23 @@ int isStartStopCallibration(void) {
 }
 
 void clearStartStopCallibration(void) {
-	startStopCallibration =0;
+	startStopCallibration = 0;
 }
 
 static void REF_StateMachine(void) {
 	int i;
-
+	SensorCalibT* stored;
 	switch (refState) {
 	case REF_STATE_INIT:
-		SHELL_SendString(
-				(unsigned char*) "INFO: No calibration data present.\r\n");
-		refState = REF_STATE_NOT_CALIBRATED;
+		stored= NVMC_GetReflectanceData();
+		if (stored != NULL) {
+			SensorCalibMinMax = *stored;
+			SHELL_SendString((unsigned char*) "INFO: Callibration loaded\r\n");
+			refState = REF_STATE_READY;
+		} else {
+			SHELL_SendString((unsigned char*) "INFO: NO callibration data\r\n");
+			refState = REF_STATE_NOT_CALIBRATED;
+		}
 		break;
 
 	case REF_STATE_NOT_CALIBRATED:
@@ -486,6 +494,13 @@ static void REF_StateMachine(void) {
 
 	case REF_STATE_STOP_CALIBRATION:
 		SHELL_SendString((unsigned char*) "...stopping calibration.\r\n");
+		if (NVMC_SaveReflectanceData((void*) &SensorCalibMinMax,
+				sizeof(SensorCalibMinMax))==0) {
+			SHELL_SendString((unsigned char*) "INFO: callibration stored\r\n");
+		} else {
+			SHELL_SendString(
+					(unsigned char*) "INFO: Could not store callibration\r\n");
+		}
 		refState = REF_STATE_READY;
 		break;
 

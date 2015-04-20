@@ -31,6 +31,7 @@
 #define PL_HAS_SHELL_QUEUE	(1)
 
 #if PL_IS_FRDM
+#define PL_HAS_CONFIG_NVM	(1)
 #define PL_HAS_SEMAPHORE	(1)
 #define PL_HAS_BLUETHOOTH	(0)
 #define PL_HAS_USB_CDC		(1)
@@ -42,6 +43,8 @@
 #define PL_KEY_POLLED_KEY3 	(1)			//This key is beeing polled
 
 #elif PL_IS_ROBO
+#define PL_HAS_CONFIG_NVM	(1)
+#define PL_HAS_MOTOR		(1)
 #define PL_HAS_LINE_SENSOR	(1)
 #define PL_HAS_BLUETHOOTH	(1)
 #define PL_HAS_USB_CDC		(1)

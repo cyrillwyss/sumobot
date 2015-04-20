@@ -16,6 +16,7 @@
 #include "Shell.h"
 #include "ShellQueue.h"
 #include "Reflectance.h"
+#include "Motor.h"
 
 void PL_Init(void) {
 #if PL_HAS_MEALY
@@ -40,16 +41,19 @@ void PL_Init(void) {
 	BUZ_Init();
 #endif
 #if PL_HAS_RTOS
-	 RTOS_Init();
+	RTOS_Init();
 #endif
 #if PL_HAS_SHELL_QUEUE
-	 SQUEUE_Init();
+	SQUEUE_Init();
 #endif
 #if	PL_HAS_SHELL
-	 SHELL_Init();
+	SHELL_Init();
 #endif
 #if PL_HAS_LINE_SENSOR
-	 REF_Init();
+	REF_Init();
+#endif
+#if PL_HAS_MOTOR
+	MOT_Init();
 #endif
 }
 
@@ -79,16 +83,19 @@ void PL_Deinit(void) {
 #endif
 
 #if PL_HAS_RTOS
-	 RTOS_Deinit();
+	RTOS_Deinit();
 #endif
 
 #if	PL_HAS_SHELL
-	 SHELL_Deinit();
+	SHELL_Deinit();
 #endif
 #if PL_HAS_SHELL_QUEUE
-	 SQUEUE_Deinit();
+	SQUEUE_Deinit();
 #endif
 #if PL_HAS_LINE_SENSOR
-	 REF_Deinit();
+	REF_Deinit();
+#endif
+#if PL_HAS_MOTOR
+	MOT_Deinit();
 #endif
 }
