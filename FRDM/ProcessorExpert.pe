@@ -3,8 +3,8 @@
   <Header>
     <Name>FRDM</Name>
     <SavedBy>Cyrill</SavedBy>
-    <ModificationStamp>37</ModificationStamp>
-    <Date>2015-04-20</Date>
+    <ModificationStamp>38</ModificationStamp>
+    <Date>2015-04-21</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.10.1.RT6_b1444-1070</PEversion>
   </Header>
@@ -37715,10 +37715,10 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Index>1</Index>
-        <Value>false</Value>
+        <Index>0</Index>
+        <Value>true</Value>
         <LastSelection>true</LastSelection>
-        <LastUserSel>no</LastUserSel>
+        <LastUserSel>yes</LastUserSel>
         <UsrMethodName>SetBlockFlash</UsrMethodName>
       </ItemState>
       <ItemState>

@@ -7,56 +7,80 @@
 
 #include "BehaviorProgramming.h"
 #include "FRTOS1.h"
+#include "../../Common/ShellQueue.h"
+#include "Behaviors/IDLEBehavior.h"
 
 int arbitratorRunning = 0;
-BehaviorT* currentBehaviors;
+BehaviorT currentBehaviors[MAXBEHAVIORS + 1];
 int currentBehaviorCount;
-int currentRunningBehavior=-1;
+volatile int currentRunningBehavior = 0;
+xSemaphoreHandle semaphore;
 
 static portTASK_FUNCTION(Arbitrator, pvParameters) {
 
-	int temp;
-	int validBehaviorFound;
 	for (;;) {
 		if (arbitratorRunning) {
-			validBehaviorFound=0;
-			for(temp=currentBehaviors>-1?currentBehaviors:0;temp<currentBehaviorCount;temp++)
-			{
+			int validBehaviorFound = 0;
+			for (int temp = 0; temp < currentBehaviorCount;
+					temp++) {
+				if (currentBehaviors[temp].wantsControl()) {
+					validBehaviorFound = temp;
+				}
+			}
 
+			if (validBehaviorFound != currentRunningBehavior) {
+				currentBehaviors[currentRunningBehavior].supress();
 			}
-			if(!validBehaviorFound)
-			{
-				currentRunningBehavior=-1;
-			}
+			currentRunningBehavior = validBehaviorFound;
+			FRTOS1_xSemaphoreGive(semaphore);
 		}
 
-		FRTOS1_vTaskDelay(20 / portTICK_RATE_MS);
+		FRTOS1_vTaskDelay(2 / portTICK_RATE_MS);
 	}
 }
 
 static portTASK_FUNCTION(BehaviorWorker, pvParameters) {
 	for (;;) {
-			if(currentRunningBehavior>-1)
-			{
-				currentBehaviors[currentRunningBehavior].action();
-			}
+		FRTOS1_xSemaphoreTake(semaphore,portMAX_DELAY);
+		currentBehaviors[currentRunningBehavior].action();
 	}
 }
 
-void setBehaviors(BehaviorT* behaviors, int behaviorCount) {
-	currentBehaviors = behaviors;
-	currentBehaviorCount = behaviorCount;
+void BPsetBehaviors(BehaviorT* behaviors, int behaviorCount) {
+	currentRunningBehavior=0;
+	if (behaviorCount > MAXBEHAVIORS) {
+		SQUEUE_SendString("Error: too many behaviors!");
+
+		for (;;) {
+		}
+	}
+	for (int i = 0; i < behaviorCount; i++) {
+		currentBehaviors[i + 1] = behaviors[i];
+	}
+	currentBehaviorCount = behaviorCount + 1;
 }
 
-void startArbitrator(void) {
+void BPstartArbitrator(void) {
 	arbitratorRunning = 1;
 }
 
-void stopArbitrator(void) {
+void BPstopArbitrator(void) {
 	arbitratorRunning = 0;
 }
 
-void init(void) {
+void BPinit(void) {
+
+
+
+	semaphore=FRTOS1_xSemaphoreCreateMutex();
+	if(semaphore==NULL)
+	{
+		for(;;){}
+	}
+
+	BehaviorT idle = { IDLEAction, IDLESupress, IDLETakeControl };
+
+	currentBehaviors[0] = idle;
 
 	if (FRTOS1_xTaskCreate(Arbitrator, "Arbi task", configMINIMAL_STACK_SIZE,
 			NULL, 1, NULL) != pdPASS) {
@@ -71,7 +95,7 @@ void init(void) {
 
 }
 
-void deInit(void) {
-stopArbitrator();
+void BPdeInit(void) {
+	BPstopArbitrator();
 }
 

@@ -12,6 +12,8 @@
 #include "../../Common/Trigger.h"
 #include "../../Common/ShellQueue.h"
 #include "../../Common/Reflectance.h"
+#include "BehaviorProgramming.h"
+#include "../../Common/Motor.h"
 
 void ProcessInitEvet(void);
 void ProcessSW1Event(void);
@@ -52,6 +54,9 @@ void ProcessInitEvet(void) {
 void ProcessSW1Event(void) {
 	SendStringToUSB("S2 Pressed\r\n" );
 	LED2_On();
+	MOT_MotorDevice* rightMotor=MOT_GetMotorHandle(MOT_MOTOR_RIGHT);
+
+	BPstartArbitrator();
 }
 void ProcessSW1EventLong(void){
 	SendStringToUSB("S2 Long Pressed\r\n" );

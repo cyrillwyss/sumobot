@@ -16,6 +16,10 @@
 #include "FRTOS1.h"
 #include "../../Common/RTOS.h"
 #include "../../Common/Keys.h"
+#include "BehaviorProgramming.h"
+#include "Behaviors/FORWARDbehavior.h"
+#include "Behaviors/WhiteLineBehavior.h"
+
 
 
 static portTASK_FUNCTION(Main, pvParameters) {
@@ -31,6 +35,18 @@ static portTASK_FUNCTION(Main, pvParameters) {
 
 void mainController_run(void) {
 	PL_Init();
+	BPinit();
+
+	BehaviorT forward={FORWARDAction,FORWARDSupress,FORWARDTakeControl};
+	BehaviorT whiteLine={WHITELINEAction,WHITELINESupress,WHITELINETakeControl};
+
+	BehaviorT behaviors[]={forward,whiteLine};
+
+	BPsetBehaviors(behaviors,2);
+
+
+
+
 
 	 if (FRTOS1_xTaskCreate(Main, (signed portCHAR *)"MAIN", configMINIMAL_STACK_SIZE, NULL, 1, NULL) != pdPASS) {
 	    for(;;){} /* error */

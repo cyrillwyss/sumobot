@@ -17,6 +17,12 @@
 #include "ShellQueue.h"
 #include "Reflectance.h"
 #include "Motor.h"
+#include "MCP4728.h"
+#include "QuadCalib.h"
+#if PL_HAS_MOTOR_QUAD
+#include "Q4CLeft.h"
+#include "Q4CRight.h"
+#endif
 
 void PL_Init(void) {
 #if PL_HAS_MEALY
@@ -54,6 +60,13 @@ void PL_Init(void) {
 #endif
 #if PL_HAS_MOTOR
 	MOT_Init();
+#endif
+#if PL_HAS_MCP4728
+	MCP4728_Init();
+#endif
+#if PL_HAS_MOTOR_QUAD
+Q4CLeft_Init();
+Q4CRight_Init();
 #endif
 }
 
@@ -97,5 +110,12 @@ void PL_Deinit(void) {
 #endif
 #if PL_HAS_MOTOR
 	MOT_Deinit();
+#endif
+#if PL_HAS_MCP4728
+	MCP4728_Deinit();
+#endif
+#if PL_HAS_MOTOR_QUAD
+Q4CLeft_Deinit();
+Q4CRight_Deinit();
 #endif
 }

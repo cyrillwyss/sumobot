@@ -174,9 +174,7 @@ static void REF_MeasureRaw(SensorTimeType raw[REF_NOF_SENSORS]) {
 	for (i = 0; i < REF_NOF_SENSORS; i++) {
 		SensorFctArray[i].SetInput(); /* turn I/O line as input */
 	}
-	CS1_CriticalVariable()
-	CS1_EnterCritical()
-	;
+	FRTOS1_taskENTER_CRITICAL();
 	do {
 
 		/*! \todo Be aware that this might block for a long time, if discharging takes long. Consider using a timeout. */
@@ -194,7 +192,7 @@ static void REF_MeasureRaw(SensorTimeType raw[REF_NOF_SENSORS]) {
 			}
 		}
 	} while (cnt != REF_NOF_SENSORS);
-	CS1_ExitCritical();
+	FRTOS1_taskEXIT_CRITICAL();
 	LED_IR_Off();
 }
 
@@ -518,7 +516,7 @@ static portTASK_FUNCTION(ReflTask, pvParameters) {
 	(void) pvParameters; /* not used */
 	for (;;) {
 		REF_StateMachine();
-		FRTOS1_vTaskDelay(10/portTICK_RATE_MS);
+		FRTOS1_vTaskDelay(20/portTICK_RATE_MS);
 	}
 }
 

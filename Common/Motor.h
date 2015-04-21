@@ -52,6 +52,8 @@ void MOT_SetSpeedPercent(MOT_MotorDevice *motor, MOT_SpeedPercent percent);
  */
 void MOT_UpdatePercent(MOT_MotorDevice *motor, MOT_Direction dir);
 
+
+
 /*!
  * \brief Sets the PWM value for the motor.
  * \param[in] motor Motor handle

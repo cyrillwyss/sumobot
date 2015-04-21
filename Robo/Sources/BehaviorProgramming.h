@@ -8,18 +8,26 @@
 #ifndef BEHAVIORPROGRAMMING_H_
 #define BEHAVIORPROGRAMMING_H_
 
+
+
+#define MAXBEHAVIORS 10
+
 typedef struct Behavior {
 
 	void (*action)(void);
 	void (*supress)(void);
-	boolean (*takeControle)(void);
+	int (*wantsControl)(void);
 
 } BehaviorT;
 
-void setBehaviors(BehaviorT* behaviors,int behaviorCount);
+void BPsetBehaviors(BehaviorT* behaviors,int behaviorCount);
 
-void startArbitrator(void);
+void BPstartArbitrator(void);
 
-void stopArbitrator(void);
+void BPstopArbitrator(void);
+
+void BPinit(void);
+
+void BPdeInit(void);
 
 #endif /* BEHAVIORPROGRAMMING_H_ */
