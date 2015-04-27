@@ -42,8 +42,18 @@ static void DirRPutVal(bool val) {
 }
 
 void MOT_SetVal(MOT_MotorDevice *motor, uint16_t val) {
+#if PL_MOTORS_ACTIVE
   motor->currPWMvalue = val;
   motor->SetRatio16(val);
+#else
+  motor->SetRatio16(0xFFFF);
+  unsigned char buf[32];
+  buf[0] = '\0';
+  UTIL1_strcat(buf, sizeof(buf),"Motor val: ");
+  UTIL1_strcatNum8s(buf, sizeof(buf), motor->currSpeedPercent);
+  CLS1_SendStr(buf,  CLS1_GetStdio()->stdOut);
+  CLS1_SendStr((unsigned char*)"\r\n",  CLS1_GetStdio()->stdOut);
+#endif
 }
 
 uint16_t MOT_GetVal(MOT_MotorDevice *motor) {

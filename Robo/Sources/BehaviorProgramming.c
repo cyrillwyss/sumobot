@@ -21,18 +21,21 @@ static portTASK_FUNCTION(Arbitrator, pvParameters) {
 	for (;;) {
 		if (arbitratorRunning) {
 			int validBehaviorFound = 0;
-			for (int temp = 0; temp < currentBehaviorCount;
-					temp++) {
+			for (int temp = 0; temp < currentBehaviorCount; temp++) {
 				if (currentBehaviors[temp].wantsControl()) {
 					validBehaviorFound = temp;
 				}
 			}
 
-			if (validBehaviorFound != currentRunningBehavior) {
+			if (validBehaviorFound > currentRunningBehavior) {
 				currentBehaviors[currentRunningBehavior].supress();
 			}
-			currentRunningBehavior = validBehaviorFound;
-			FRTOS1_xSemaphoreGive(semaphore);
+			if (currentRunningBehavior != validBehaviorFound) {
+				currentRunningBehavior = validBehaviorFound;
+				FRTOS1_xSemaphoreGive(semaphore);
+			}
+		} else {
+			currentBehaviors[currentRunningBehavior].supress();
 		}
 
 		FRTOS1_vTaskDelay(2 / portTICK_RATE_MS);
@@ -41,13 +44,13 @@ static portTASK_FUNCTION(Arbitrator, pvParameters) {
 
 static portTASK_FUNCTION(BehaviorWorker, pvParameters) {
 	for (;;) {
-		FRTOS1_xSemaphoreTake(semaphore,portMAX_DELAY);
+		FRTOS1_xSemaphoreTake(semaphore, portMAX_DELAY);
 		currentBehaviors[currentRunningBehavior].action();
 	}
 }
 
 void BPsetBehaviors(BehaviorT* behaviors, int behaviorCount) {
-	currentRunningBehavior=0;
+	currentRunningBehavior = 0;
 	if (behaviorCount > MAXBEHAVIORS) {
 		SQUEUE_SendString("Error: too many behaviors!");
 
@@ -70,12 +73,10 @@ void BPstopArbitrator(void) {
 
 void BPinit(void) {
 
-
-
-	semaphore=FRTOS1_xSemaphoreCreateMutex();
-	if(semaphore==NULL)
-	{
-		for(;;){}
+	semaphore = FRTOS1_xSemaphoreCreateMutex();
+	if (semaphore == NULL) {
+		for (;;) {
+		}
 	}
 
 	BehaviorT idle = { IDLEAction, IDLESupress, IDLETakeControl };

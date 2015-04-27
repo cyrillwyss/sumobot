@@ -38,6 +38,10 @@
 #include "Q4CRight.h"
 #endif
 
+#if PL_HAS_MOTOR_TACHO
+#include "Tacho.h"
+#endif
+
 /* forward declaration */
 static uint8_t SHELL_ParseCommand(const unsigned char *cmd, bool *handled,
 		const CLS1_StdIOType *io);
@@ -64,6 +68,10 @@ SHELL_ParseCommand, /* our own module parser */
 #if PL_HAS_MOTOR_QUAD
 Q4CLeft_ParseCommand,
 Q4CRight_ParseCommand,
+#endif
+
+#if PL_HAS_MOTOR_TACHO
+TACHO_ParseCommand,
 #endif
 
 #if PL_HAS_BLUETOOTH

@@ -43,6 +43,8 @@
 #define PL_KEY_POLLED_KEY3 	(1)			//This key is beeing polled
 
 #elif PL_IS_ROBO
+#define PL_HAS_MOTOR_TACHO		(1)
+#define PL_MOTORS_ACTIVE		(1)
 #define PL_HAS_MOTOR_QUAD		(1)
 #define PL_HAS_MCP4728			(1)
 #define PL_HAS_QUAD_CALIBRATION	(1)
@@ -53,7 +55,7 @@
 #define PL_HAS_USB_CDC			(1)
   #define PL_NOF_LEDS      		(2)
 #define PL_NOF_KEYS 			(1)
-#define PL_HAS_BUZZER			(1)
+#define PL_HAS_BUZZER			(0)
 #else
   #error "unknown configuration?"
 #endif

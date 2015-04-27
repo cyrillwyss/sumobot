@@ -23,6 +23,9 @@
 #include "Q4CLeft.h"
 #include "Q4CRight.h"
 #endif
+#if PL_HAS_MOTOR_TACHO
+#include "Tacho.h"
+#endif
 
 void PL_Init(void) {
 #if PL_HAS_MEALY
@@ -68,6 +71,10 @@ void PL_Init(void) {
 Q4CLeft_Init();
 Q4CRight_Init();
 #endif
+#if PL_HAS_MOTOR_TACHO
+TACHO_Init();
+#endif
+
 }
 
 void PL_Deinit(void) {
@@ -117,5 +124,8 @@ void PL_Deinit(void) {
 #if PL_HAS_MOTOR_QUAD
 Q4CLeft_Deinit();
 Q4CRight_Deinit();
+#endif
+#if PL_HAS_MOTOR_TACHO
+TACHO_Deinit();
 #endif
 }

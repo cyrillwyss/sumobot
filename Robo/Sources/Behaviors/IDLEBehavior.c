@@ -5,7 +5,6 @@
  *      Author: Cyrill
  */
 
-
 #include "IDLEBehavior.h"
 #include "FRTOS1.h"
 
@@ -18,5 +17,5 @@ void IDLESupress() {
 }
 
 void IDLEAction() {
-    FRTOS1_taskYIELD();
+
 }
