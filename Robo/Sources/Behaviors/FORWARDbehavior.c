@@ -6,8 +6,8 @@
  */
 
 #include "FORWARDbehavior.h"
-#include "../../Common/Motor.h"
 #include "FRTOS1.h"
+#include "../../Common/Drive.h"
 
 static volatile int supressed = 0;
 
@@ -20,14 +20,12 @@ void FORWARDSupress() {
 
 void FORWARDAction() {
 	supressed = 0;
-	MOT_MotorDevice* leftMotor = MOT_GetMotorHandle(MOT_MOTOR_LEFT);
-	MOT_MotorDevice* rightMotor = MOT_GetMotorHandle(MOT_MOTOR_RIGHT);
 
-	MOT_SetSpeedPercent(leftMotor,20);
-	MOT_SetSpeedPercent(rightMotor, 20);
+
+	DRV_SetSpeed(2000,2000);
+
 	while (!supressed) {
 		FRTOS1_taskYIELD();
 	}
-	MOT_SetSpeedPercent(leftMotor, 0);
-	MOT_SetSpeedPercent(rightMotor, 0);
+	DRV_SetSpeed(0,0);
 }

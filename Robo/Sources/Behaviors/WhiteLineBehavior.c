@@ -7,7 +7,7 @@
 
 #include "WhiteLineBehavior.h"
 #include "../../Common/Reflectance.h"
-#include "../../Common/Motor.h"
+#include "../../Common/Drive.h"
 #include "FRTOS1.h"
 
 static volatile int supressed = 0;
@@ -21,11 +21,8 @@ void WHITELINESupress() {
 }
 
 void Finalize() {
-	MOT_MotorDevice* leftMotor = MOT_GetMotorHandle(MOT_MOTOR_LEFT);
-	MOT_MotorDevice* rightMotor = MOT_GetMotorHandle(MOT_MOTOR_RIGHT);
+	DRV_SetSpeed(0,0);
 
-	MOT_SetSpeedPercent(leftMotor, 0);
-	MOT_SetSpeedPercent(rightMotor, 0);
 }
 
 void WHITELINEAction() {
@@ -34,9 +31,9 @@ void WHITELINEAction() {
 	MOT_MotorDevice* leftMotor = MOT_GetMotorHandle(MOT_MOTOR_LEFT);
 	MOT_MotorDevice* rightMotor = MOT_GetMotorHandle(MOT_MOTOR_RIGHT);
 
-	MOT_SetSpeedPercent(leftMotor, -20);
-	MOT_SetSpeedPercent(rightMotor, -20);
-	for (counter = 0; counter < 1000; counter++) {
+	DRV_SetSpeed(-2000,-2000);
+
+	for (counter = 0; counter < 250; counter++) {
 		if (supressed) {
 			Finalize();
 			return;
@@ -47,7 +44,7 @@ void WHITELINEAction() {
 	MOT_SetSpeedPercent(leftMotor, 20);
 	MOT_SetSpeedPercent(rightMotor, -20);
 
-	for (counter = 0; counter < 1000; counter++) {
+	for (counter = 0; counter < 300; counter++) {
 		if (supressed) {
 			Finalize();
 			return;

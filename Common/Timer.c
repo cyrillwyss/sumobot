@@ -9,12 +9,21 @@
 #if PL_HAS_HAS_TIMER
 #include "Event.h"
 #include "Trigger.h"
+#if PL_HAS_MOTOR_TACHO
+#include "Tacho.h"
+#endif
 
-#define TICKS_FOR_HEARTBEAT (1000/TMR_TICK_MS)
+#define PID_SAMPLE_TIME_MS 10
+
+static int cnt=0;
 
 
 void TMR_OnInterrupt(void){
 	TRG_IncTick();
+
+#if PL_HAS_MOTOR_TACHO
+	TACHO_Sample();
+#endif
 
 }
 

@@ -35,9 +35,7 @@
 #include "Q4CLeft.h"
 #include "Q4CRight.h"
 #endif
-#if PL_HAS_MOTOR_TACHO
-#include "../../Common/Tacho.h"
-#endif
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -124,9 +122,7 @@ void FRTOS1_vApplicationTickHook(void) {
 	/* Called for every RTOS tick. */
 	/* Write your code here ... */
 	TMR_OnInterrupt();
-#if PL_HAS_MOTOR_TACHO
-	TACHO_Sample();
-#endif
+
 }
 
 /*

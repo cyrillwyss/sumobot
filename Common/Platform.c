@@ -26,6 +26,12 @@
 #if PL_HAS_MOTOR_TACHO
 #include "Tacho.h"
 #endif
+#if PL_HAS_PID
+#include "Pid.h"
+#endif
+#if PL_HAS_DRIVE
+#include "Drive.h"
+#endif
 
 void PL_Init(void) {
 #if PL_HAS_MEALY
@@ -74,7 +80,12 @@ Q4CRight_Init();
 #if PL_HAS_MOTOR_TACHO
 TACHO_Init();
 #endif
-
+#if PL_HAS_PID
+PID_Init();
+#endif
+#if PL_HAS_DRIVE
+DRV_Init();
+#endif
 }
 
 void PL_Deinit(void) {
@@ -127,5 +138,12 @@ Q4CRight_Deinit();
 #endif
 #if PL_HAS_MOTOR_TACHO
 TACHO_Deinit();
+#endif
+#if PL_HAS_PID
+PID_Deinit();
+#endif
+
+#if PL_HAS_DRIVE
+DRV_deInit();
 #endif
 }
