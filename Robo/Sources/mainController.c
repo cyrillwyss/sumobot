@@ -45,7 +45,7 @@ void mainController_run(void) {
 
 	BehaviorT behaviors[]={search,attack,whiteLine};
 
-	BPsetBehaviors(behaviors,2);
+	BPsetBehaviors(behaviors,3);
 
 
 

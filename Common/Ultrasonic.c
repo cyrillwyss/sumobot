@@ -87,7 +87,7 @@ uint16_t US_Measure_us(void) {
   if (usDevice.state==ECHO_FINISHED) {
     usDevice.lastValue_us = (usDevice.capture*1000UL)/(TU_US_CNT_INP_FREQ_U_0/1000);
   } else {
-    usDevice.lastValue_us = 0; /* error case */
+    usDevice.lastValue_us = 65000; /* error case */
   }
   usDevice.state = ECHO_IDLE;
   TU_US_Disable(usDevice.echoDevice);
@@ -144,7 +144,7 @@ static portTASK_FUNCTION(USTask, pvParameters) {
 	(void) pvParameters; /* not used */
 	for (;;) {
 		US_Measure_us();
-		FRTOS1_vTaskDelay(50/portTICK_RATE_MS);
+		FRTOS1_vTaskDelay(100/portTICK_RATE_MS);
 	}
 }
 

@@ -16,7 +16,7 @@ static volatile int supressed = 0;
 
 int ATTACKTakeControl(void) {
 	uint16_t distance=US_GetDistance();
-	return distance>0&&distance<120;
+	return distance<120;
 }
 void ATTACKSupress(void) {
 	supressed = 1;
@@ -29,8 +29,16 @@ static void Finalize(void){
 void ATTACKAction(void) {
 	supressed = 0;
 	int counter = 0;
+	int lostCounter=300;
 	SQUEUE_SendString("Attacking...");
-	while (!supressed&&ATTACKTakeControl()) {
+	while (!supressed&&lostCounter>0) {
+		if(!ATTACKTakeControl())
+		{
+			lostCounter--;
+		}
+		else{
+			lostCounter=300;
+		}
 		DRV_SetSpeed(2000, 2000);
 
 		FRTOS1_vTaskDelay(1 / portTICK_RATE_MS);
