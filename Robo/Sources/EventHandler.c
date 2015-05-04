@@ -16,6 +16,7 @@
 #include "../../Common/Reflectance.h"
 #include "BehaviorProgramming.h"
 #include "../../Common/Motor.h"
+#include "Behaviors/FORWARDbehavior.h"
 
 void ProcessInitEvet(void);
 void ProcessSW1Event(void);

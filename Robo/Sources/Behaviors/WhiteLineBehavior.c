@@ -9,47 +9,48 @@
 #include "../../Common/Reflectance.h"
 #include "../../Common/Drive.h"
 #include "FRTOS1.h"
+#include "../../Common/ShellQueue.h"
 
 static volatile int supressed = 0;
 
-int WHITELINETakeControl() {
+int WHITELINETakeControl(void) {
 	return REF_GetLineValue() > 0;
 }
-void WHITELINESupress() {
+void WHITELINESupress(void) {
 	supressed = 1;
 
 }
 
-void Finalize() {
-	DRV_SetSpeed(0,0);
+static void Finalize(void) {
+	DRV_SetSpeed(0, 0);
 
 }
 
-void WHITELINEAction() {
+void WHITELINEAction(void) {
 	supressed = 0;
 	int counter = 0;
-	MOT_MotorDevice* leftMotor = MOT_GetMotorHandle(MOT_MOTOR_LEFT);
-	MOT_MotorDevice* rightMotor = MOT_GetMotorHandle(MOT_MOTOR_RIGHT);
 
-	DRV_SetSpeed(-2000,-2000);
+	SQUEUE_SendString("White line detected...");
+	while (!supressed && WHITELINETakeControl()) {
+		DRV_SetSpeed(-2000, -2000);
 
-	for (counter = 0; counter < 250; counter++) {
-		if (supressed) {
-			Finalize();
-			return;
+		for (counter = 0; counter < 500; counter++) {
+			if (supressed) {
+				Finalize();
+				return;
+			}
+			FRTOS1_vTaskDelay(1 / portTICK_RATE_MS);
 		}
-		FRTOS1_vTaskDelay(1 / portTICK_RATE_MS);
-	}
 
-	MOT_SetSpeedPercent(leftMotor, 20);
-	MOT_SetSpeedPercent(rightMotor, -20);
+		DRV_SetSpeed(2000, -2000);
 
-	for (counter = 0; counter < 300; counter++) {
-		if (supressed) {
-			Finalize();
-			return;
+		for (counter = 0; counter < 500; counter++) {
+			if (supressed) {
+				Finalize();
+				return;
+			}
+			FRTOS1_vTaskDelay(1 / portTICK_RATE_MS);
 		}
-		FRTOS1_vTaskDelay(1 / portTICK_RATE_MS);
+		Finalize();
 	}
-	Finalize();
 }

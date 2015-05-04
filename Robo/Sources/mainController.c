@@ -19,7 +19,8 @@
 #include "BehaviorProgramming.h"
 #include "Behaviors/FORWARDbehavior.h"
 #include "Behaviors/WhiteLineBehavior.h"
-
+#include "Behaviors/ATTACKBehavior.h"
+#include "Behaviors/SEARCHBehavior.h"
 
 
 static portTASK_FUNCTION(Main, pvParameters) {
@@ -39,8 +40,10 @@ void mainController_run(void) {
 
 	BehaviorT forward={FORWARDAction,FORWARDSupress,FORWARDTakeControl};
 	BehaviorT whiteLine={WHITELINEAction,WHITELINESupress,WHITELINETakeControl};
+	BehaviorT search={SEARCHAction,SEARCHSupress,SEARCHTakeControl};
+	BehaviorT attack={ATTACKAction,ATTACKSupress,ATTACKTakeControl};
 
-	BehaviorT behaviors[]={forward,whiteLine};
+	BehaviorT behaviors[]={search,attack,whiteLine};
 
 	BPsetBehaviors(behaviors,2);
 

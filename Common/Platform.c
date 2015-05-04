@@ -32,6 +32,9 @@
 #if PL_HAS_DRIVE
 #include "Drive.h"
 #endif
+#if PL_HAS_ULTRASONIC
+#include "Ultrasonic.h"
+#endif
 
 void PL_Init(void) {
 #if PL_HAS_MEALY
@@ -85,6 +88,9 @@ PID_Init();
 #endif
 #if PL_HAS_DRIVE
 DRV_Init();
+#endif
+#if PL_HAS_ULTRASONIC
+US_Init();
 #endif
 }
 
@@ -145,5 +151,8 @@ PID_Deinit();
 
 #if PL_HAS_DRIVE
 DRV_deInit();
+#endif
+#if PL_HAS_ULTRASONIC
+US_Deinit();
 #endif
 }

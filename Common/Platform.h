@@ -43,6 +43,7 @@
 #define PL_KEY_POLLED_KEY3 	(1)			//This key is beeing polled
 
 #elif PL_IS_ROBO
+#define PL_HAS_ULTRASONIC		(1)
 #define PL_HAS_DRIVE			(1)
 #define PL_HAS_PID				(1)
 #define PL_HAS_MOTOR_TACHO		(1)

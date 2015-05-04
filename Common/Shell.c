@@ -47,6 +47,9 @@
 #if PL_HAS_PID
 #include "Pid.h"
 #endif
+#if PL_HAS_ULTRASONIC
+#include "Ultrasonic.h"
+#endif
 
 /* forward declaration */
 static uint8_t SHELL_ParseCommand(const unsigned char *cmd, bool *handled,
@@ -72,19 +75,21 @@ SHELL_ParseCommand, /* our own module parser */
 #endif
 
 #if PL_HAS_MOTOR_QUAD
-Q4CLeft_ParseCommand,
-Q4CRight_ParseCommand,
+		Q4CLeft_ParseCommand, Q4CRight_ParseCommand,
 #endif
 
 #if PL_HAS_MOTOR_TACHO
-TACHO_ParseCommand,
+		TACHO_ParseCommand,
 #endif
 
 #if PL_HAS_DRIVE
-DRV_ParseCommand,
+		DRV_ParseCommand,
 #endif
 #if PL_HAS_PID
-PID_ParseCommand,
+		PID_ParseCommand,
+#endif
+#if PL_HAS_ULTRASONIC
+		US_ParseCommand,
 #endif
 
 #if PL_HAS_BLUETOOTH
