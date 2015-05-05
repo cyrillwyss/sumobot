@@ -15,7 +15,7 @@ static volatile int supressed = 0;
 
 int ATTACKTakeControl(void) {
 	uint16_t distance = US_GetDistance();
-	return distance < 120;
+	return distance <= 70;
 }
 void ATTACKSupress(void) {
 	supressed = 1;

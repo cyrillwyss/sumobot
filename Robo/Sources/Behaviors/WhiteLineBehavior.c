@@ -42,7 +42,7 @@ void WHITELINEAction(void) {
 
 		DRV_SetSpeed(-2000, -2000);
 
-		for (counter = 0; counter < 500; counter++) {
+		for (counter = 0; counter < 250; counter++) {
 			if (supressed) {
 				Finalize();
 				return;

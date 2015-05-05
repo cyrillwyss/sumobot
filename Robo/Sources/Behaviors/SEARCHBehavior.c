@@ -25,7 +25,7 @@ void SEARCHAction(void) {
 	supressed = 0;
 	int counter = 0;
 	SQUEUE_SendString("Searching...");
-	DRV_SetSpeed(3000, -3000);
+	DRV_SetSpeed(600, -600);
 	while (!supressed) {
 		FRTOS1_vTaskDelay(1 / portTICK_RATE_MS);
 	}
