@@ -17,6 +17,7 @@
 #include "BehaviorProgramming.h"
 #include "../../Common/Motor.h"
 #include "Behaviors/FORWARDbehavior.h"
+#include "FRTOS1.h"
 
 void ProcessInitEvet(void);
 void ProcessSW1Event(void);
@@ -61,9 +62,18 @@ void ProcessSW1Event(void) {
 	SendStringToUSB("S2 Pressed\r\n");
 	MOT_MotorDevice* rightMotor = MOT_GetMotorHandle(MOT_MOTOR_RIGHT);
 	if (bPStarted) {
+		SendStringToUSB("System Stopped...\r\n");
+		BUZ_Beep(250, 500);
 		BPstopArbitrator();
 		bPStarted = 0;
 	} else {
+		SendStringToUSB("Starting in 5s...\r\n");
+		int timeS;
+		for (timeS = 0; timeS < 5; timeS++) {
+			BUZ_Beep(50 + (timeS * 50), 100);
+			FRTOS1_vTaskDelay(1000 / portTICK_RATE_MS);
+		}
+		SendStringToUSB("System Started ..\r\n");
 		BPstartArbitrator();
 		bPStarted = 1;
 	}

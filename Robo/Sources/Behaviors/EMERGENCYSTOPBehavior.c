@@ -6,11 +6,14 @@
  */
 
 #include "EMERGENCYSTOPBehavior.h"
+#include "../../Common/ShellQueue.h"
+#include "../../Common/Drive.h"
+#include "FRTOS1.h"
 
 static volatile int supressed = 0;
 
 int EMERGENCYSTOPTakeControl(void) {
-	return false;
+	return 0;
 }
 void EMERGENCYSTOPSupress(void) {
 	supressed = 1;

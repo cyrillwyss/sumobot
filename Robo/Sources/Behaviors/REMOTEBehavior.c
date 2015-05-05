@@ -6,11 +6,14 @@
  */
 
 #include "REMOTEBehavior.h"
+#include "../../Common/ShellQueue.h"
+#include "../../Common/Drive.h"
+#include "FRTOS1.h"
 
 static volatile int supressed = 0;
 
 int REMOTETakeControl(void) {
-	return false;
+	return 0;
 }
 void REMOTESupress(void) {
 	supressed = 1;
