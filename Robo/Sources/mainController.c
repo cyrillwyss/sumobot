@@ -23,11 +23,12 @@
 #include "Behaviors/SEARCHBehavior.h"
 #include "Behaviors/EMERGENCYSTOPBehavior.h"
 #include "Behaviors/REMOTEBehavior.h"
+#include "../../Common/Accel.h"
 
 static portTASK_FUNCTION(Main, pvParameters) {
 	KEY_EnableInterrupts();
-
 	EVNT_SetEvent(EVNT_INIT);
+	ACCEL_LowLevelInit();
 	for (;;) {
 		EventHandler_HandleEvent();
 
