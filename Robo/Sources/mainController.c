@@ -21,7 +21,8 @@
 #include "Behaviors/WhiteLineBehavior.h"
 #include "Behaviors/ATTACKBehavior.h"
 #include "Behaviors/SEARCHBehavior.h"
-
+#include "Behaviors/EMERGENCYSTOPBehavior.h"
+#include "Behaviors/REMOTEBehavior.h"
 
 static portTASK_FUNCTION(Main, pvParameters) {
 	KEY_EnableInterrupts();
@@ -38,14 +39,16 @@ void mainController_run(void) {
 	PL_Init();
 	BPinit();
 
-	BehaviorT forward={FORWARDAction,FORWARDSupress,FORWARDTakeControl};
+	//BehaviorT forward={FORWARDAction,FORWARDSupress,FORWARDTakeControl};
 	BehaviorT whiteLine={WHITELINEAction,WHITELINESupress,WHITELINETakeControl};
 	BehaviorT search={SEARCHAction,SEARCHSupress,SEARCHTakeControl};
 	BehaviorT attack={ATTACKAction,ATTACKSupress,ATTACKTakeControl};
+	BehaviorT remote={REMOTEAction,REMOTESupress,REMOTETakeControl};
+	BehaviorT emergencyStop={EMERGENCYSTOPAction,EMERGENCYSTOPSupress,EMERGENCYSTOPTakeControl};
 
-	BehaviorT behaviors[]={search,attack,whiteLine};
+	BehaviorT behaviors[]={search,attack,whiteLine,emergencyStop,remote};
 
-	BPsetBehaviors(behaviors,3);
+	BPsetBehaviors(behaviors,5);
 
 
 

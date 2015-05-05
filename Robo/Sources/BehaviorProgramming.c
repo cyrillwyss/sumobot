@@ -64,6 +64,7 @@ void BPsetBehaviors(BehaviorT* behaviors, int behaviorCount) {
 }
 
 void BPstartArbitrator(void) {
+	currentRunningBehavior = 0;
 	arbitratorRunning = 1;
 }
 

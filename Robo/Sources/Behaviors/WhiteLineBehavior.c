@@ -23,7 +23,6 @@ void WHITELINESupress(void) {
 
 static void Finalize(void) {
 	DRV_SetSpeed(0, 0);
-
 }
 
 void WHITELINEAction(void) {
@@ -32,9 +31,8 @@ void WHITELINEAction(void) {
 
 	SQUEUE_SendString("White line detected...");
 	while (!supressed && WHITELINETakeControl()) {
-		DRV_SetSpeed(-2000, -2000);
-
-		for (counter = 0; counter < 500; counter++) {
+		DRV_SetSpeed(-500, -500);
+		for (counter = 0; counter < 50; counter++) {
 			if (supressed) {
 				Finalize();
 				return;
@@ -42,7 +40,7 @@ void WHITELINEAction(void) {
 			FRTOS1_vTaskDelay(1 / portTICK_RATE_MS);
 		}
 
-		DRV_SetSpeed(2000, -2000);
+		DRV_SetSpeed(-2000, -2000);
 
 		for (counter = 0; counter < 500; counter++) {
 			if (supressed) {
