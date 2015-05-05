@@ -35,6 +35,9 @@
 #if PL_HAS_ULTRASONIC
 #include "Ultrasonic.h"
 #endif
+#if PL_HAS_ACCEL
+#include "Accel.h"
+#endif
 
 void PL_Init(void) {
 #if PL_HAS_MEALY
@@ -91,6 +94,9 @@ DRV_Init();
 #endif
 #if PL_HAS_ULTRASONIC
 US_Init();
+#endif
+#if PL_HAS_ACCEL
+ACCEL_Init();
 #endif
 }
 
@@ -150,9 +156,12 @@ PID_Deinit();
 #endif
 
 #if PL_HAS_DRIVE
-DRV_deInit();
+DRV_Deinit();
 #endif
 #if PL_HAS_ULTRASONIC
 US_Deinit();
+#endif
+#if PL_HAS_ACCEL
+ACCEL_Deinit();
 #endif
 }
