@@ -31,13 +31,13 @@ void REMOTEInit(void) {
 
 static void Finalize(void) {
 	DRV_SetSpeed(0, 0);
-	REF_setLatchStatus(1);
+	//REF_setLatchStatus(1);
 }
 
 void REMOTEAction(void) {
 	supressed = 0;
 
-	REF_setLatchStatus(0);
+//	REF_setLatchStatus(0);
 	SQUEUE_SendString("Remote Control Enabled...\r\n");
 	while (!supressed && REMOTETakeControl()) {
 

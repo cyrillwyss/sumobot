@@ -60,7 +60,7 @@ void mainController_run(void) {
 	BehaviorT remote={REMOTEInit,REMOTEAction,REMOTESupress,REMOTETakeControl};
 	BehaviorT emergencyStop={EMERGENCYInit,EMERGENCYSTOPAction,EMERGENCYSTOPSupress,EMERGENCYSTOPTakeControl};
 
-	BehaviorT behaviors[]={search,attack,whiteLine,remote};
+	BehaviorT behaviors[]={search,attack,remote,whiteLine};
 
 	BPsetBehaviors(behaviors,4);
 
