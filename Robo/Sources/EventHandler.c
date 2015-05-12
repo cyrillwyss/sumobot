@@ -67,10 +67,12 @@ void ProcessSW1Event(void) {
 		BPstopArbitrator();
 		bPStarted = 0;
 	} else {
-		SendStringToUSB("Starting in 5s...\r\n");
-		int timeS;
+
+		SendStringToUSB("Starting in ");
+		uint16_t timeS;
 		for (timeS = 0; timeS < 5; timeS++) {
-			BUZ_Beep(50 + (timeS * 50), 100);
+			SendStringToUSB("..");
+			BUZ_Beep(100 + (timeS * 100), 200);
 			FRTOS1_vTaskDelay(1000 / portTICK_RATE_MS);
 		}
 		SendStringToUSB("System Started ..\r\n");
@@ -88,9 +90,7 @@ void ProcessSW1EventReleased(void) {
 
 }
 void ProcessLEDHeartbeatEcent(void) {
-	LED1_On();
-	TRG_SetTrigger(TRG_HEARTBEAT_OFF, 100 / TRG_TICKS_MS, TurnOffHeartBeat,
-	NULL);
+	LED1_Neg();
 }
 
 void TurnOffHeartBeat(TRG_CallBackDataPtr data) {

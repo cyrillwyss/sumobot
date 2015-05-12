@@ -18,6 +18,8 @@
  */
 void ACCEL_GetValues(int16_t *x, int16_t *y, int16_t *z);
 
+void ACCEL_GetLastValues(int16_t *x, int16_t *y, int16_t *z);
+
 /*! \brief Deinitialization of the module */
 void ACCEL_Deinit(void);
 

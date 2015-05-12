@@ -15,4 +15,6 @@ void IDLESupress();
 
 void IDLEAction();
 
+void IDLEInit(void);
+
 #endif /* IDLEBEHAVIOR_H_ */

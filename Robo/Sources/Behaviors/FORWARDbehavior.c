@@ -18,6 +18,10 @@ void FORWARDSupress() {
 	supressed = 1;
 }
 
+void FORWARDInit(void){
+
+}
+
 void FORWARDAction() {
 	supressed = 0;
 

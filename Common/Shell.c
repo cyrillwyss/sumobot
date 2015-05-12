@@ -53,6 +53,9 @@
 #if PL_HAS_ACCEL
 #include "MMA1.h"
 #endif
+#if PL_HAS_RADIO
+#include "RNet_App.h"
+#endif
 
 /* forward declaration */
 static uint8_t SHELL_ParseCommand(const unsigned char *cmd, bool *handled,
@@ -96,6 +99,11 @@ SHELL_ParseCommand, /* our own module parser */
 #endif
 #if PL_HAS_ACCEL
 		MMA1_ParseCommand,
+#endif
+
+#if PL_HAS_RADIO
+		RNET1_ParseCommand,
+		RNETA_ParseCommand,
 #endif
 
 #if PL_HAS_BLUETOOTH

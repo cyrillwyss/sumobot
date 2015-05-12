@@ -39,8 +39,6 @@
 #include "WAIT1.h"
 #include "Led2.h"
 #include "BitIoLdd2.h"
-#include "Led3.h"
-#include "BitIoLdd3.h"
 #include "CS1.h"
 #include "HF1.h"
 #include "SW1.h"
@@ -74,6 +72,14 @@
 #include "MMA1.h"
 #include "I2C1.h"
 #include "GI2C1.h"
+#include "RNET1.h"
+#include "RF1.h"
+#include "CE1.h"
+#include "BitIoLdd11.h"
+#include "CSN1.h"
+#include "BitIoLdd12.h"
+#include "SM1.h"
+#include "SMasterLdd1.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -13,4 +13,6 @@ void FORWARDSupress();
 
 void FORWARDAction();
 
+void FORWARDInit(void);
+
 #endif /* FORWARDBEHAVIOR_H_ */

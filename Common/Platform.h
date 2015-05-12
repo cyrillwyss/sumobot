@@ -30,13 +30,14 @@
 #define PL_HAS_SHELL		(1)
 #define PL_HAS_SHELL_QUEUE	(1)
 #define PL_HAS_ACCEL		(1)
+#define PL_HAS_RADIO		(1)
 
 #if PL_IS_FRDM
 #define PL_HAS_CONFIG_NVM	(1)
 #define PL_HAS_SEMAPHORE	(1)
 #define PL_HAS_BLUETHOOTH	(0)
 #define PL_HAS_USB_CDC		(1)
-#define PL_NOF_LEDS       	(3)
+#define PL_NOF_LEDS       	(2)
 #define PL_HAS_JOYSTICK		(1)
 #define PL_NOF_KEYS			(7)
 #define PL_KEY_POLLED_KEY5 	(1)			//This key is beeing polled

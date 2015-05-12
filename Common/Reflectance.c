@@ -25,6 +25,9 @@
 #include "Shell.h"
 #include "CS1.h"
 #include "NVM_Config.h"
+#include "ShellQueue.h"
+#include "Drive.h"
+#include "Pid.h"
 
 //#include "NVM_Config.h"
 #if PL_HAS_BUZZER
@@ -169,12 +172,12 @@ static void REF_MeasureRaw(SensorTimeType raw[REF_NOF_SENSORS]) {
 		SensorFctArray[i].SetVal(); /* put high */
 		raw[i] = MAX_SENSOR_VALUE;
 	}
+	FRTOS1_taskENTER_CRITICAL();
 	WAIT1_Waitus(50); /* give some time to charge the capacitor */
 	(void) RefCnt_ResetCounter(timerHandle); /* reset timer counter */
 	for (i = 0; i < REF_NOF_SENSORS; i++) {
 		SensorFctArray[i].SetInput(); /* turn I/O line as input */
 	}
-	FRTOS1_taskENTER_CRITICAL();
 	do {
 
 		/*! \todo Be aware that this might block for a long time, if discharging takes long. Consider using a timeout. */
@@ -447,7 +450,7 @@ static void REF_StateMachine(void) {
 	SensorCalibT* stored;
 	switch (refState) {
 	case REF_STATE_INIT:
-		stored= NVMC_GetReflectanceData();
+		stored = NVMC_GetReflectanceData();
 		if (stored != NULL) {
 			SensorCalibMinMax = *stored;
 			SHELL_SendString((unsigned char*) "INFO: Callibration loaded\r\n");
@@ -493,7 +496,7 @@ static void REF_StateMachine(void) {
 	case REF_STATE_STOP_CALIBRATION:
 		SHELL_SendString((unsigned char*) "...stopping calibration.\r\n");
 		if (NVMC_SaveReflectanceData((void*) &SensorCalibMinMax,
-				sizeof(SensorCalibMinMax))==0) {
+				sizeof(SensorCalibMinMax)) == 0) {
 			SHELL_SendString((unsigned char*) "INFO: callibration stored\r\n");
 		} else {
 			SHELL_SendString(
@@ -512,10 +515,38 @@ static void REF_StateMachine(void) {
 	} /* switch */
 }
 
+static volatile int hadLine = 0;
+static volatile int latchEnabled = 1;
+
+int REF_HadLine(void) {
+	return hadLine;
+}
+
+void REF_resetHadLine(void) {
+	hadLine = 0;
+	//SQUEUE_SendString("Ref Latch Reset.\r\n");
+}
+
+void REF_setLatchStatus(int enabled) {
+	latchEnabled = enabled;
+}
+
 static portTASK_FUNCTION(ReflTask, pvParameters) {
 	(void) pvParameters; /* not used */
 	for (;;) {
 		REF_StateMachine();
+		if (REF_GetLineValue() > 0 && latchEnabled) {
+			if (hadLine == 0) {
+				DRV_SetSpeed(0, 0);
+				PID_Start();
+
+				//SQUEUE_SendString("Ref Latch Enabled.\r\n");
+
+			}
+
+			hadLine = 1;
+
+		}
 		FRTOS1_vTaskDelay(20/portTICK_RATE_MS);
 	}
 }
@@ -528,7 +559,7 @@ void REF_Init(void) {
 	timerHandle = RefCnt_Init(NULL);
 	/*! \todo You might need to adjust priority or other task settings */
 	if (FRTOS1_xTaskCreate(ReflTask, "Refl", configMINIMAL_STACK_SIZE, NULL,
-			tskIDLE_PRIORITY+2, NULL) != pdPASS) {
+			tskIDLE_PRIORITY+4, NULL) != pdPASS) {
 		for (;;) {
 		} /* error */
 	}

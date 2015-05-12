@@ -13,4 +13,6 @@ void REMOTESupress();
 
 void REMOTEAction();
 
+void REMOTEInit(void);
+
 #endif /* REMOTEBEHAVIOR_H_ */

@@ -13,4 +13,6 @@ void ATTACKSupress();
 
 void ATTACKAction();
 
+void ATTACKInit(void);
+
 #endif /* ATTACKBEHAVIOR_H_ */

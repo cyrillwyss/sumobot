@@ -19,17 +19,26 @@
 #include "FRTOS1.h"
 #include "../../Common/RTOS.h"
 #include "../../Common/Sem.h"
-
-
+#include "RNET1.h"
+#include "Accel.h"
 
 static portTASK_FUNCTION(Main, pvParameters) {
 	KEY_EnableInterrupts();
 
 	EVNT_SetEvent(EVNT_INIT);
+	ACCEL_LowLevelInit();
+	RNET1_SetChannel(6);
+	int counter = 0;
 	for (;;) {
 		KEY_Scan();
 		EventHandler_HandleEvent();
-
+		counter++;
+		if (counter % 10 == 0) {
+			EVNT_SetEvent(EVNT_LED_HEARTBEAT);
+		}
+		if (counter % 2 == 0) {
+			EVNT_SetEvent(EVNT_PROCESS_JOYSTICK);
+		}
 		FRTOS1_vTaskDelay(50 / portTICK_RATE_MS);
 	}
 }
@@ -38,11 +47,13 @@ void mainController_run(void) {
 
 	PL_Init();
 
-	 if (FRTOS1_xTaskCreate(Main, (signed portCHAR *)"MAIN", configMINIMAL_STACK_SIZE, NULL, 1, NULL) != pdPASS) {
-	    for(;;){} /* error */
-	  }
-	 SEM_Init();
-	 RTOS_Run();
+	if (FRTOS1_xTaskCreate(Main, (signed portCHAR *)"MAIN",
+			configMINIMAL_STACK_SIZE, NULL, 1, NULL) != pdPASS) {
+		for (;;) {
+		} /* error */
+	}
+	SEM_Init();
+	RTOS_Run();
 
 }
 

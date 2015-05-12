@@ -10,9 +10,9 @@
 #include "../../Common/ShellQueue.h"
 #include "Behaviors/IDLEBehavior.h"
 
-int arbitratorRunning = 0;
-BehaviorT currentBehaviors[MAXBEHAVIORS + 1];
-int currentBehaviorCount;
+volatile int arbitratorRunning = 0;
+volatile BehaviorT currentBehaviors[MAXBEHAVIORS + 1];
+volatile int currentBehaviorCount;
 volatile int currentRunningBehavior = 0;
 xSemaphoreHandle semaphore;
 
@@ -36,6 +36,7 @@ static portTASK_FUNCTION(Arbitrator, pvParameters) {
 			}
 		} else {
 			currentBehaviors[currentRunningBehavior].supress();
+			currentRunningBehavior = 0;
 		}
 
 		FRTOS1_vTaskDelay(2 / portTICK_RATE_MS);
@@ -44,7 +45,7 @@ static portTASK_FUNCTION(Arbitrator, pvParameters) {
 
 static portTASK_FUNCTION(BehaviorWorker, pvParameters) {
 	for (;;) {
-		FRTOS1_xSemaphoreTake(semaphore, portMAX_DELAY);
+		FRTOS1_xSemaphoreTake(semaphore, 150 / portTICK_RATE_MS);
 		currentBehaviors[currentRunningBehavior].action();
 	}
 }
@@ -65,7 +66,12 @@ void BPsetBehaviors(BehaviorT* behaviors, int behaviorCount) {
 
 void BPstartArbitrator(void) {
 	currentRunningBehavior = 0;
+	int i;
+	for (i = 0; i < currentBehaviorCount; i++) {
+		currentBehaviors[i].init();
+	}
 	arbitratorRunning = 1;
+
 }
 
 void BPstopArbitrator(void) {
@@ -80,17 +86,17 @@ void BPinit(void) {
 		}
 	}
 
-	BehaviorT idle = { IDLEAction, IDLESupress, IDLETakeControl };
+	BehaviorT idle = { IDLEInit, IDLEAction, IDLESupress, IDLETakeControl };
 
 	currentBehaviors[0] = idle;
 
 	if (FRTOS1_xTaskCreate(Arbitrator, "Arbi task", configMINIMAL_STACK_SIZE,
-			NULL, 1, NULL) != pdPASS) {
+			NULL, 5, NULL) != pdPASS) {
 		for (;;) {
 		}
 	}
-	if (FRTOS1_xTaskCreate(BehaviorWorker, "BehaviorWorker task",
-			configMINIMAL_STACK_SIZE, NULL, 0, NULL) != pdPASS) {
+	if (FRTOS1_xTaskCreate(BehaviorWorker, "BEH work",
+			configMINIMAL_STACK_SIZE, NULL, 4, NULL) != pdPASS) {
 		for (;;) {
 		}
 	}

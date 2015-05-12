@@ -16,6 +16,10 @@ int IDLETakeControl() {
 void IDLESupress() {
 }
 
+void IDLEInit(void){
+
+}
+
 void IDLEAction() {
 
 }

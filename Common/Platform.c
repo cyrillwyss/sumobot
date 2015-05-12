@@ -38,6 +38,9 @@
 #if PL_HAS_ACCEL
 #include "Accel.h"
 #endif
+#if PL_HAS_RADIO
+#include "RNet_App.h"
+#endif
 
 void PL_Init(void) {
 #if PL_HAS_MEALY
@@ -80,23 +83,26 @@ void PL_Init(void) {
 	MCP4728_Init();
 #endif
 #if PL_HAS_MOTOR_QUAD
-Q4CLeft_Init();
-Q4CRight_Init();
+	Q4CLeft_Init();
+	Q4CRight_Init();
 #endif
 #if PL_HAS_MOTOR_TACHO
-TACHO_Init();
+	TACHO_Init();
 #endif
 #if PL_HAS_PID
-PID_Init();
+	PID_Init();
 #endif
 #if PL_HAS_DRIVE
-DRV_Init();
+	DRV_Init();
 #endif
 #if PL_HAS_ULTRASONIC
-US_Init();
+	US_Init();
 #endif
 #if PL_HAS_ACCEL
-ACCEL_Init();
+	ACCEL_Init();
+#endif
+#if PL_HAS_RADIO
+	RNETA_Init();
 #endif
 }
 
@@ -145,23 +151,26 @@ void PL_Deinit(void) {
 	MCP4728_Deinit();
 #endif
 #if PL_HAS_MOTOR_QUAD
-Q4CLeft_Deinit();
-Q4CRight_Deinit();
+	Q4CLeft_Deinit();
+	Q4CRight_Deinit();
 #endif
 #if PL_HAS_MOTOR_TACHO
-TACHO_Deinit();
+	TACHO_Deinit();
 #endif
 #if PL_HAS_PID
-PID_Deinit();
+	PID_Deinit();
 #endif
 
 #if PL_HAS_DRIVE
-DRV_Deinit();
+	DRV_Deinit();
 #endif
 #if PL_HAS_ULTRASONIC
-US_Deinit();
+	US_Deinit();
 #endif
 #if PL_HAS_ACCEL
-ACCEL_Deinit();
+	ACCEL_Deinit();
+#endif
+#if PL_HAS_RADIO
+	RNETA_Deinit();
 #endif
 }

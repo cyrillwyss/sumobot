@@ -34,6 +34,12 @@
  */
 uint16_t REF_GetLineValue(void);
 
+int REF_HadLine(void);
+
+void REF_resetHadLine(void);
+
+void REF_setLatchStatus(int enabled);
+
 /*!
  * \brief Starts the callibration of the reflactance sensor
  */

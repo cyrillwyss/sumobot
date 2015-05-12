@@ -13,4 +13,6 @@ void SEARCHSupress();
 
 void SEARCHAction();
 
+void SearchInit(void);
+
 #endif /* SEARCHBEHAVIOR_H_ */

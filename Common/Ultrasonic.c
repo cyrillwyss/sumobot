@@ -74,7 +74,7 @@ uint16_t US_Measure_us(void) {
   WAIT1_Waitus(10);
   usDevice.state = ECHO_TRIGGERED;
   TRIG_ClrVal(usDevice.trigDevice);
-  timeout = 30;
+  timeout = 20;
   while(usDevice.state!=ECHO_FINISHED && timeout>0) {
     /* measure echo pulse */
     if (usDevice.state==ECHO_OVERFLOW) { /* measurement took too long? */

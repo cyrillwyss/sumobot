@@ -8,9 +8,11 @@
 #ifndef EMERGENCYSTOPBEHAVIOR_H_
 #define EMERGENCYSTOPBEHAVIOR_H_
 
-int EMERGENCYSTOPTakeControl();
-void EMERGENCYSTOPSupress();
+int EMERGENCYSTOPTakeControl(void);
+void EMERGENCYSTOPSupress(void);
 
-void EMERGENCYSTOPAction();
+void EMERGENCYSTOPAction(void);
+
+void EMERGENCYInit(void);
 
 #endif /* EMERGENCYSTOPBEHAVIOR_H_ */

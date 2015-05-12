@@ -39,6 +39,7 @@ typedef enum EVNT_Handle {
   EVNT_SW6_RELEASED,
   EVNT_SW7_RELEASED,
   EVNT_LED_HEARTBEAT,
+  EVNT_PROCESS_JOYSTICK,
   /*!< \todo Your events here */
   EVNT_NOF_EVENTS       /*!< Must be last one! */
 } EVNT_Handle;

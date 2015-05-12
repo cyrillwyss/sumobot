@@ -21,6 +21,10 @@ void ATTACKSupress(void) {
 	supressed = 1;
 }
 
+void ATTACKInit(void){
+
+}
+
 static void Finalize(void) {
 	DRV_SetSpeed(0, 0);
 }
@@ -28,8 +32,8 @@ static void Finalize(void) {
 void ATTACKAction(void) {
 	supressed = 0;
 	int counter = 0;
-	int lostCounter = 300;
-	SQUEUE_SendString("Attacking...");
+	int lostCounter = 90;
+	SQUEUE_SendString("Attacking...\r\n");
 
 	DRV_SetSpeed(0, 0);
 
@@ -41,13 +45,13 @@ void ATTACKAction(void) {
 		FRTOS1_vTaskDelay(1 / portTICK_RATE_MS);
 	}
 
-	DRV_SetSpeed(1000, 1000);
+	DRV_SetSpeed(5000, 5000);
 
 	while (!supressed && lostCounter > 0) {
 		if (!ATTACKTakeControl()) {
 			lostCounter--;
 		} else {
-			lostCounter = 300;
+			lostCounter = 90;
 		}
 
 		FRTOS1_vTaskDelay(1 / portTICK_RATE_MS);

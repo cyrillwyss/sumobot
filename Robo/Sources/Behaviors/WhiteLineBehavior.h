@@ -10,9 +10,11 @@
 
 
 
-int WHITELINETakeControl();
-void WHITELINESupress();
+int WHITELINETakeControl(void);
+void WHITELINESupress(void);
 
-void WHITELINEAction();
+void WHITELINEAction(void);
+
+void WHITELINEInit(void);
 
 #endif /* WHITELINEBEHAVIOR_H_ */

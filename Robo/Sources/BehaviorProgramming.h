@@ -14,6 +14,7 @@
 
 typedef struct Behavior {
 
+	void (*init)(void);
 	void (*action)(void);
 	void (*supress)(void);
 	int (*wantsControl)(void);

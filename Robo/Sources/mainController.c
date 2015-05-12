@@ -24,14 +24,27 @@
 #include "Behaviors/EMERGENCYSTOPBehavior.h"
 #include "Behaviors/REMOTEBehavior.h"
 #include "../../Common/Accel.h"
+#include "../../Common/ShellQueue.h"
+#include "RNET1.h"
 
 static portTASK_FUNCTION(Main, pvParameters) {
 	KEY_EnableInterrupts();
 	EVNT_SetEvent(EVNT_INIT);
 	ACCEL_LowLevelInit();
+	RNET1_SetChannel(6);
+	if(ACCEL_Enable()!=ERR_OK)
+	{
+		SQUEUE_SendString("Acc. Enabling failed!!!!");
+	}
+	int counter=0;
 	for (;;) {
 		EventHandler_HandleEvent();
-
+		counter++;
+		if(counter==10)
+		{
+			EVNT_SetEvent(EVNT_LED_HEARTBEAT);
+			counter=0;
+		}
 		FRTOS1_vTaskDelay(50 / portTICK_RATE_MS);
 	}
 }
@@ -41,15 +54,15 @@ void mainController_run(void) {
 	BPinit();
 
 	//BehaviorT forward={FORWARDAction,FORWARDSupress,FORWARDTakeControl};
-	BehaviorT whiteLine={WHITELINEAction,WHITELINESupress,WHITELINETakeControl};
-	BehaviorT search={SEARCHAction,SEARCHSupress,SEARCHTakeControl};
-	BehaviorT attack={ATTACKAction,ATTACKSupress,ATTACKTakeControl};
-	BehaviorT remote={REMOTEAction,REMOTESupress,REMOTETakeControl};
-	BehaviorT emergencyStop={EMERGENCYSTOPAction,EMERGENCYSTOPSupress,EMERGENCYSTOPTakeControl};
+	BehaviorT whiteLine={WHITELINEInit,WHITELINEAction,WHITELINESupress,WHITELINETakeControl};
+	BehaviorT search={SearchInit,SEARCHAction,SEARCHSupress,SEARCHTakeControl};
+	BehaviorT attack={ATTACKInit,ATTACKAction,ATTACKSupress,ATTACKTakeControl};
+	BehaviorT remote={REMOTEInit,REMOTEAction,REMOTESupress,REMOTETakeControl};
+	BehaviorT emergencyStop={EMERGENCYInit,EMERGENCYSTOPAction,EMERGENCYSTOPSupress,EMERGENCYSTOPTakeControl};
 
-	BehaviorT behaviors[]={search,attack,whiteLine,emergencyStop,remote};
+	BehaviorT behaviors[]={search,attack,whiteLine,remote};
 
-	BPsetBehaviors(behaviors,5);
+	BPsetBehaviors(behaviors,4);
 
 
 
