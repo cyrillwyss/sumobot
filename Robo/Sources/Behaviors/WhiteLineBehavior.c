@@ -18,7 +18,6 @@ int WHITELINETakeControl(void) {
 }
 void WHITELINESupress(void) {
 	supressed = 1;
-
 }
 
 void WHITELINEInit(void){
@@ -51,7 +50,7 @@ void WHITELINEAction(void) {
 
 		DRV_SetSpeed(-4000, -4000);
 
-		for (counter = 0; counter < 125; counter++) {
+		for (counter = 0; counter < 200; counter++) {
 			if (supressed) {
 				Finalize();
 				return;

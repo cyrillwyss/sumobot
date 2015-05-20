@@ -83,6 +83,7 @@ void SendStringToUSB(char* string) {
 }
 
 static uint8_t enabled = 0;
+static uint8_t whitleLine=1;
 
 void sendENabled() {
 	uint8_t data[2];
@@ -102,6 +103,15 @@ void sendJoystickData(uint8_t x, uint8_t y) {
 	RAPP_SendPayloadDataBlock(data, sizeof(data), RAPP_MSG_TYPE_JOYSTICK_XY, DEST_ADDR_ROBO,
 	RPHY_PACKET_FLAGS_NONE);
 
+}
+
+void sendWhiteLine()
+{
+	uint8_t data[2];
+		data[0]=COMM_MAGICNUMBER;
+		data[1] = whitleLine;
+		RAPP_SendPayloadDataBlock(data, sizeof(data), RAPP_MSG_TYPE_WHITELING, DEST_ADDR_ROBO,
+		RPHY_PACKET_FLAGS_NONE);
 }
 
 void ProcessInitEvet(void) {
@@ -130,14 +140,19 @@ void ProcessSW2Event(void) {
 	LED2_Off();
 }
 void ProcessSW3Event(void) {
+	whitleLine=0;
+	sendWhiteLine();
 	SendStringToUSB("C Pressed\r\n");
 
 }
 void ProcessSW4Event(void) {
+	whitleLine=1;
+	sendWhiteLine();
 	SendStringToUSB("D Pressed\r\n");
 
 }
 void ProcessSW5Event(void) {
+
 	SendStringToUSB("E Pressed\r\n");
 
 }

@@ -7,10 +7,12 @@
 
 #include "RNETMessageHandler.h"
 #include "RNet_App.h"
+#include "Reflectance.h"
 
 static volatile int enabled = 0;
 static volatile int speed = 0;
 static volatile int steering = 0;
+static volatile int whiteLine = 1;
 
 uint8_t RNETMH_HandleMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *data,
 		RNWK_ShortAddrType srcAddr, bool *handled, RPHY_PacketDesc *packet) {
@@ -36,8 +38,17 @@ uint8_t RNETMH_HandleMessage(RAPP_MSG_Type type, uint8_t size, uint8_t *data,
 	case RAPP_MSG_TYPE_JOYSTICK_XY:
 		*handled = TRUE;
 		if (size == 3) {
-			speed = (int8_t)data[1];
-			steering = -(int8_t)data[2];
+			speed = (int8_t) data[1];
+			steering = -(int8_t) data[2];
+		}
+		break;
+	case RAPP_MSG_TYPE_WHITELING:
+		*handled = TRUE;
+		if (size == 2) {
+			whiteLine = data[1];
+#if PL_HAS_LINE_SENSOR
+			REF_setLatchStatus(whiteLine);
+#endif
 		}
 		break;
 	default: /*! \todo Handle your own messages here */
@@ -56,4 +67,8 @@ int RNETMH_getSPeedVal(void) {
 
 int RNETMH_getSteeringVal(void) {
 	return steering;
+}
+
+int RNETMH_getWhiteLineVal(void) {
+	return whiteLine;
 }

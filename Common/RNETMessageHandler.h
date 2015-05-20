@@ -20,5 +20,7 @@ int RNETMH_getSPeedVal(void);
 
 int RNETMH_getSteeringVal(void);
 
+int RNETMH_getWhiteLineVal(void);
+
 
 #endif /* RNETMESSAGEHANDLER_H_ */

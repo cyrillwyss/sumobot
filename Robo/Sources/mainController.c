@@ -25,6 +25,7 @@
 #include "Behaviors/REMOTEBehavior.h"
 #include "../../Common/Accel.h"
 #include "../../Common/ShellQueue.h"
+#include "Behaviors/RANDOMBehavior.h"
 #include "RNET1.h"
 
 static portTASK_FUNCTION(Main, pvParameters) {
@@ -59,6 +60,8 @@ void mainController_run(void) {
 	BehaviorT attack={ATTACKInit,ATTACKAction,ATTACKSupress,ATTACKTakeControl};
 	BehaviorT remote={REMOTEInit,REMOTEAction,REMOTESupress,REMOTETakeControl};
 	BehaviorT emergencyStop={EMERGENCYInit,EMERGENCYSTOPAction,EMERGENCYSTOPSupress,EMERGENCYSTOPTakeControl};
+
+	BehaviorT randomTurn={RANDOMInit,RANDOMAction,RANDOMSupress,RANDOMTakeControl};
 
 	BehaviorT behaviors[]={search,attack,remote,whiteLine};
 

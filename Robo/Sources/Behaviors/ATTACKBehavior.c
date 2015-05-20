@@ -32,7 +32,7 @@ static void Finalize(void) {
 void ATTACKAction(void) {
 	supressed = 0;
 	int counter = 0;
-	int lostCounter = 90;
+	int lostCounter = 150;
 	SQUEUE_SendString("Attacking...\r\n");
 
 	DRV_SetSpeed(0, 0);
@@ -45,7 +45,7 @@ void ATTACKAction(void) {
 		FRTOS1_vTaskDelay(1 / portTICK_RATE_MS);
 	}
 
-	DRV_SetSpeed(5000, 5000);
+	DRV_SetSpeed(6000, 6000);
 
 	while (!supressed && lostCounter > 0) {
 		if (!ATTACKTakeControl()) {
